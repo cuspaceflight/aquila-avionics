@@ -16,12 +16,12 @@ $EndDescr
 $Comp
 L RF_GPS:MAX-M8W U?
 U 1 1 62143EF4
-P 8900 2300
-F 0 "U?" H 8900 1511 50  0000 C CNN
-F 1 "MAX-M8W" H 8900 1420 50  0000 C CNN
-F 2 "RF_GPS:ublox_MAX" H 9300 1650 50  0001 C CNN
-F 3 "https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf" H 8900 2300 50  0001 C CNN
-	1    8900 2300
+P 9450 2250
+F 0 "U?" H 9450 1461 50  0000 C CNN
+F 1 "MAX-M8W" H 9450 1370 50  0000 C CNN
+F 2 "RF_GPS:ublox_MAX" H 9850 1600 50  0001 C CNN
+F 3 "https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf" H 9450 2250 50  0001 C CNN
+	1    9450 2250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -38,13 +38,13 @@ $EndComp
 $Comp
 L cusf-kicad:Si4460 IC?
 U 1 1 62148F07
-P 6500 3900
-F 0 "IC?" H 6500 4725 50  0000 C CNN
-F 1 "Si4460" H 6500 4634 50  0000 C CNN
-F 2 "cusf:QFN-20-EP-SI" H 6200 3100 50  0001 L CNN
-F 3 "" H 6100 4500 50  0001 C CNN
-F 4 "2462635" H 6200 3000 50  0001 L CNN "Farnell"
-	1    6500 3900
+P 6350 4400
+F 0 "IC?" H 6350 5225 50  0000 C CNN
+F 1 "Si4460" H 6350 5134 50  0000 C CNN
+F 2 "cusf:QFN-20-EP-SI" H 6050 3600 50  0001 L CNN
+F 3 "" H 5950 5000 50  0001 C CNN
+F 4 "2462635" H 6050 3500 50  0001 L CNN "Farnell"
+	1    6350 4400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -667,12 +667,295 @@ Wire Wire Line
 $Comp
 L aquila:ADXL357 U?
 U 1 1 625041A3
-P 6600 1450
-F 0 "U?" H 6600 1475 50  0000 C CNN
-F 1 "ADXL357" H 6600 1384 50  0000 C CNN
-F 2 "" H 6600 1450 50  0001 C CNN
-F 3 "" H 6600 1450 50  0001 C CNN
-	1    6600 1450
+P 5850 900
+F 0 "U?" H 5850 925 50  0000 C CNN
+F 1 "ADXL357" H 5850 834 50  0000 C CNN
+F 2 "" H 5850 833 50  0001 C CNN
+F 3 "" H 5850 900 50  0001 C CNN
+	1    5850 900 
 	1    0    0    -1  
 $EndComp
+$Comp
+L cusf-kicad:3v3 #PWR?
+U 1 1 625137DC
+P 7250 1400
+F 0 "#PWR?" H 7250 1510 50  0001 L CNN
+F 1 "3v3" H 7250 1523 50  0000 C CNN
+F 2 "" H 7250 1400 50  0001 C CNN
+F 3 "" H 7250 1400 50  0001 C CNN
+	1    7250 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L cusf-kicad:C C?
+U 1 1 62513E1F
+P 7250 1450
+F 0 "C?" V 7254 1508 50  0000 L CNN
+F 1 "10u" V 7345 1508 50  0000 L CNN
+F 2 "" H 7250 1450 50  0001 C CNN
+F 3 "" H 7250 1450 50  0001 C CNN
+	1    7250 1450
+	0    1    1    0   
+$EndComp
+$Comp
+L cusf-kicad:C C?
+U 1 1 6251A2DF
+P 7000 1450
+F 0 "C?" V 7004 1508 50  0000 L CNN
+F 1 "0u1" V 7095 1508 50  0000 L CNN
+F 2 "" H 7000 1450 50  0001 C CNN
+F 3 "" H 7000 1450 50  0001 C CNN
+	1    7000 1450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7250 1450 7250 1400
+Connection ~ 7250 1400
+Wire Wire Line
+	7000 1450 7000 1400
+Connection ~ 7000 1400
+Wire Wire Line
+	7000 1400 7250 1400
+Wire Wire Line
+	7000 1550 7000 1600
+Wire Wire Line
+	7000 1600 7250 1600
+Wire Wire Line
+	7250 1600 7250 1550
+$Comp
+L cusf-kicad:C C?
+U 1 1 62535AB8
+P 6950 1700
+F 0 "C?" V 6954 1758 50  0000 L CNN
+F 1 "10u" V 7045 1758 50  0000 L CNN
+F 2 "" H 6950 1700 50  0001 C CNN
+F 3 "" H 6950 1700 50  0001 C CNN
+	1    6950 1700
+	0    1    1    0   
+$EndComp
+$Comp
+L cusf-kicad:C C?
+U 1 1 62535ABE
+P 6700 1700
+F 0 "C?" V 6704 1758 50  0000 L CNN
+F 1 "0u1" V 6795 1758 50  0000 L CNN
+F 2 "" H 6700 1700 50  0001 C CNN
+F 3 "" H 6700 1700 50  0001 C CNN
+	1    6700 1700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 1850 6950 1800
+Wire Wire Line
+	6450 1400 7000 1400
+Wire Wire Line
+	6450 1600 6600 1600
+Wire Wire Line
+	6600 1600 6600 2150
+$Comp
+L power:GND #PWR?
+U 1 1 62546C2D
+P 6600 2150
+F 0 "#PWR?" H 6600 1900 50  0001 C CNN
+F 1 "GND" H 6605 1977 50  0000 C CNN
+F 2 "" H 6600 2150 50  0001 C CNN
+F 3 "" H 6600 2150 50  0001 C CNN
+	1    6600 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 1600 7250 2150
+Connection ~ 7250 1600
+Connection ~ 6600 2150
+Wire Wire Line
+	6700 1800 6700 1850
+Wire Wire Line
+	6950 1700 6950 1650
+Wire Wire Line
+	6950 1650 6800 1650
+Wire Wire Line
+	6700 1650 6700 1700
+Wire Wire Line
+	6700 1850 6800 1850
+Wire Wire Line
+	6600 2150 6800 2150
+Wire Wire Line
+	6800 1500 6800 1650
+Wire Wire Line
+	6450 1500 6800 1500
+Connection ~ 6800 1650
+Wire Wire Line
+	6800 1650 6700 1650
+Wire Wire Line
+	6800 1850 6800 2150
+Connection ~ 6800 1850
+Wire Wire Line
+	6800 1850 6950 1850
+Connection ~ 6800 2150
+Wire Wire Line
+	6800 2150 7250 2150
+$Comp
+L cusf-kicad:C C?
+U 1 1 6257E52C
+P 6550 1950
+F 0 "C?" V 6554 2008 50  0000 L CNN
+F 1 "10u" V 6645 2008 50  0000 L CNN
+F 2 "" H 6550 1950 50  0001 C CNN
+F 3 "" H 6550 1950 50  0001 C CNN
+	1    6550 1950
+	0    1    1    0   
+$EndComp
+$Comp
+L cusf-kicad:C C?
+U 1 1 6257E532
+P 6300 1950
+F 0 "C?" V 6304 2008 50  0000 L CNN
+F 1 "0u1" V 6395 2008 50  0000 L CNN
+F 2 "" H 6300 1950 50  0001 C CNN
+F 3 "" H 6300 1950 50  0001 C CNN
+	1    6300 1950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6550 2100 6550 2050
+Wire Wire Line
+	6300 2050 6300 2100
+Wire Wire Line
+	6550 1950 6550 1900
+Wire Wire Line
+	6300 1900 6300 1950
+Wire Wire Line
+	6300 1900 6450 1900
+Wire Wire Line
+	6300 2100 6450 2100
+Wire Wire Line
+	6450 1700 6450 1900
+Connection ~ 6450 1900
+Wire Wire Line
+	6450 1900 6550 1900
+Wire Wire Line
+	6450 2100 6450 2150
+Wire Wire Line
+	6450 2150 6600 2150
+Connection ~ 6450 2100
+Wire Wire Line
+	6450 2100 6550 2100
+$Comp
+L cusf-kicad:C C?
+U 1 1 6259291D
+P 4900 1850
+F 0 "C?" V 4904 1908 50  0000 L CNN
+F 1 "10u" V 4995 1908 50  0000 L CNN
+F 2 "" H 4900 1850 50  0001 C CNN
+F 3 "" H 4900 1850 50  0001 C CNN
+	1    4900 1850
+	0    1    1    0   
+$EndComp
+$Comp
+L cusf-kicad:C C?
+U 1 1 62592923
+P 4650 1850
+F 0 "C?" V 4654 1908 50  0000 L CNN
+F 1 "0u1" V 4745 1908 50  0000 L CNN
+F 2 "" H 4650 1850 50  0001 C CNN
+F 3 "" H 4650 1850 50  0001 C CNN
+	1    4650 1850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4900 2000 4900 1950
+Wire Wire Line
+	4650 1950 4650 2000
+Wire Wire Line
+	4900 1850 4900 1800
+Wire Wire Line
+	4650 1800 4650 1850
+Wire Wire Line
+	5250 1600 5150 1600
+Wire Wire Line
+	5150 1600 5150 2150
+$Comp
+L power:GND #PWR?
+U 1 1 625A2DA0
+P 5150 2150
+F 0 "#PWR?" H 5150 1900 50  0001 C CNN
+F 1 "GND" H 5155 1977 50  0000 C CNN
+F 2 "" H 5150 2150 50  0001 C CNN
+F 3 "" H 5150 2150 50  0001 C CNN
+	1    5150 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 1800 4800 1800
+Connection ~ 5150 2150
+Wire Wire Line
+	5250 1500 4800 1500
+Wire Wire Line
+	4800 1500 4800 1800
+Connection ~ 4800 1800
+Wire Wire Line
+	4800 1800 4900 1800
+Wire Wire Line
+	4650 2000 4800 2000
+Wire Wire Line
+	4800 2000 4800 2150
+Wire Wire Line
+	4800 2150 5150 2150
+Connection ~ 4800 2000
+Wire Wire Line
+	4800 2000 4900 2000
+$Comp
+L cusf-kicad:3v3 #PWR?
+U 1 1 625C7175
+P 4800 1500
+F 0 "#PWR?" H 4800 1610 50  0001 L CNN
+F 1 "3v3" H 4800 1623 50  0000 C CNN
+F 2 "" H 4800 1500 50  0001 C CNN
+F 3 "" H 4800 1500 50  0001 C CNN
+	1    4800 1500
+	1    0    0    -1  
+$EndComp
+Connection ~ 4800 1500
+Entry Wire Line
+	4950 1100 5050 1200
+Entry Wire Line
+	4950 1200 5050 1300
+Entry Wire Line
+	4950 1300 5050 1400
+Wire Bus Line
+	4950 1100 4650 1100
+Wire Wire Line
+	5250 1200 5050 1200
+Wire Wire Line
+	5250 1300 5050 1300
+Wire Wire Line
+	5050 1400 5250 1400
+Text Label 5050 1200 0    50   ~ 0
+SCLK
+Text Label 5050 1300 0    50   ~ 0
+MOSI
+Text Label 5050 1400 0    50   ~ 0
+MISO
+Text Label 4650 1100 2    50   ~ 0
+SPI1
+Wire Wire Line
+	5250 1100 5150 1100
+Wire Wire Line
+	5150 950  4650 950 
+Text Label 4650 950  2    50   ~ 0
+accel_cs
+Wire Wire Line
+	5150 1100 5150 950 
+Wire Notes Line
+	4250 800  7550 800 
+Wire Notes Line
+	7550 2550 4250 2550
+Text Notes 6200 2500 0    50   ~ 0
++/-40g, 70ug res. Accelerometer
+Wire Notes Line
+	7550 800  7550 2550
+Wire Notes Line
+	4250 800  4250 2550
+Wire Bus Line
+	4950 1100 4950 1300
 $EndSCHEMATC
