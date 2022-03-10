@@ -27,24 +27,12 @@ $EndComp
 $Comp
 L teensy:Teensy4.1 U?
 U 1 1 62144D72
-P 2550 7850
-F 0 "U?" H 2550 10415 50  0000 C CNN
-F 1 "Teensy4.1" H 2550 10324 50  0000 C CNN
-F 2 "" H 2150 8250 50  0001 C CNN
-F 3 "" H 2150 8250 50  0001 C CNN
-	1    2550 7850
-	1    0    0    -1  
-$EndComp
-$Comp
-L cusf-kicad:Si4460 IC?
-U 1 1 62148F07
-P 6350 4400
-F 0 "IC?" H 6350 5225 50  0000 C CNN
-F 1 "Si4460" H 6350 5134 50  0000 C CNN
-F 2 "cusf:QFN-20-EP-SI" H 6050 3600 50  0001 L CNN
-F 3 "" H 5950 5000 50  0001 C CNN
-F 4 "2462635" H 6050 3500 50  0001 L CNN "Farnell"
-	1    6350 4400
+P 2750 9200
+F 0 "U?" H 2750 11765 50  0000 C CNN
+F 1 "Teensy4.1" H 2750 11674 50  0000 C CNN
+F 2 "" H 2350 9600 50  0001 C CNN
+F 3 "" H 2350 9600 50  0001 C CNN
+	1    2750 9200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -956,6 +944,62 @@ Wire Notes Line
 	7550 800  7550 2550
 Wire Notes Line
 	4250 800  4250 2550
+NoConn ~ 5250 1700
+NoConn ~ 6450 1200
+NoConn ~ 6450 1300
+Text Label 6700 1100 0    50   ~ 0
+accel_drdy
+Wire Wire Line
+	6450 1100 6700 1100
+$Comp
+L RF:Si4463 U?
+U 1 1 6268F7FD
+P 5300 4400
+F 0 "U?" H 5300 5400 50  0000 C CNN
+F 1 "Si4463" H 5300 5300 50  0000 C CNN
+F 2 "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias" H 5300 5600 50  0001 C CNN
+F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 5000 4300 50  0001 C CNN
+	1    5300 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L aquila:120591-1 J?
+U 1 1 626A7BFD
+P 1550 4650
+F 0 "J?" H 1678 4526 50  0000 L CNN
+F 1 "120591-1" H 1678 4435 50  0000 L CNN
+F 2 "" H 1550 4800 50  0001 C CNN
+F 3 "" H 1550 4800 50  0001 C CNN
+	1    1550 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 4900 1400 5000
+$Comp
+L power:GND #PWR?
+U 1 1 626ADD67
+P 1400 5000
+F 0 "#PWR?" H 1400 4750 50  0001 C CNN
+F 1 "GND" H 1405 4827 50  0000 C CNN
+F 2 "" H 1400 5000 50  0001 C CNN
+F 3 "" H 1400 5000 50  0001 C CNN
+	1    1400 5000
+	1    0    0    -1  
+$EndComp
+Text Label 1250 4750 2    50   ~ 0
+vbat
+Wire Wire Line
+	1250 4750 1400 4750
+Wire Notes Line
+	1000 4600 3800 4600
+Wire Notes Line
+	1000 5300 3800 5300
+Wire Notes Line
+	1000 4600 1000 5300
+Wire Notes Line
+	3800 4600 3800 5300
 Wire Bus Line
 	4950 1100 4950 1300
+Text Notes 2550 5250 0    50   ~ 0
+3V CR2032 for Real Time Clock 
 $EndSCHEMATC
