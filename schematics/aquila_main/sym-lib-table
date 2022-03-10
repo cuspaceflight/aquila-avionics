@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name teensy)(type Legacy)(uri C:/Users/dlhfe/OneDrive/cam/CUSF/teensy_library/teensy.lib)(options "")(descr ""))
   (lib (name aquila)(type Legacy)(uri C:/Users/dlhfe/OneDrive/cam/CUSF/aquila-avionics/schematics/lib/aquila.lib)(options "")(descr ""))
+  (lib (name aquila_main-rescue)(type Legacy)(uri ${KIPRJMOD}/aquila_main-rescue.lib)(options "")(descr ""))
 )

@@ -27,12 +27,12 @@ $EndComp
 $Comp
 L teensy:Teensy4.1 U?
 U 1 1 62144D72
-P 2550 7850
-F 0 "U?" H 2550 10415 50  0000 C CNN
-F 1 "Teensy4.1" H 2550 10324 50  0000 C CNN
-F 2 "" H 2150 8250 50  0001 C CNN
-F 3 "" H 2150 8250 50  0001 C CNN
-	1    2550 7850
+P 2750 9200
+F 0 "U?" H 2750 11765 50  0000 C CNN
+F 1 "Teensy4.1" H 2750 11674 50  0000 C CNN
+F 2 "" H 2350 9600 50  0001 C CNN
+F 3 "" H 2350 9600 50  0001 C CNN
+	1    2750 9200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -237,19 +237,6 @@ Text Label 1350 2300 2    50   ~ 0
 BATT_N
 Wire Wire Line
 	2100 2300 1350 2300
-$Comp
-L cusf-kicad:BME280 IC?
-U 1 1 621D3869
-P 8250 5400
-F 0 "IC?" H 8250 5825 50  0000 C CNN
-F 1 "BME280" H 8250 5734 50  0000 C CNN
-F 2 "cusf:BME280" H 7950 5000 50  0001 L CNN
-F 3 "https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf" H 7950 4900 50  0001 L CNN
-F 4 "262-BME280" H 7950 4800 50  0001 L CNN "Mouser"
-F 5 "828-1063-1-ND" H 7950 4700 50  0001 L CNN "Digi-Key"
-	1    8250 5400
-	1    0    0    -1  
-$EndComp
 $Comp
 L cusf-kicad:3v3 #PWR?
 U 1 1 621D7AA7
@@ -962,6 +949,61 @@ F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 
 	1    5300 4400
 	1    0    0    -1  
 $EndComp
+$Comp
+L aquila:120591-1 J?
+U 1 1 626A7BFD
+P 1550 4650
+F 0 "J?" H 1678 4526 50  0000 L CNN
+F 1 "120591-1" H 1678 4435 50  0000 L CNN
+F 2 "" H 1550 4800 50  0001 C CNN
+F 3 "https://www.farnell.com/cad/1815976.pdf" H 1550 4800 50  0001 C CNN
+	1    1550 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 4900 1400 5000
+$Comp
+L power:GND #PWR?
+U 1 1 626ADD67
+P 1400 5000
+F 0 "#PWR?" H 1400 4750 50  0001 C CNN
+F 1 "GND" H 1405 4827 50  0000 C CNN
+F 2 "" H 1400 5000 50  0001 C CNN
+F 3 "" H 1400 5000 50  0001 C CNN
+	1    1400 5000
+	1    0    0    -1  
+$EndComp
+Text Label 1250 4750 2    50   ~ 0
+vbat
+Wire Wire Line
+	1250 4750 1400 4750
+Wire Notes Line
+	1000 4600 3800 4600
+Wire Notes Line
+	1000 5300 3800 5300
+Wire Notes Line
+	1000 4600 1000 5300
+Wire Notes Line
+	3800 4600 3800 5300
+Text Notes 2550 5250 0    50   ~ 0
+3V CR2032 for Real Time Clock 
+$Comp
+L cusf-kicad:BME280 IC?
+U 1 1 621D3869
+P 8250 5400
+F 0 "IC?" H 8250 5825 50  0000 C CNN
+F 1 "BME280" H 8250 5734 50  0000 C CNN
+F 2 "cusf:BME280" H 7950 5000 50  0001 L CNN
+F 3 "https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf" H 7950 4900 50  0001 L CNN
+F 4 "262-BME280" H 7950 4800 50  0001 L CNN "Mouser"
+F 5 "828-1063-1-ND" H 7950 4700 50  0001 L CNN "Digi-Key"
+	1    8250 5400
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	4950 1100 4950 1300
+Text Notes 2150 10800 0    50   ~ 0
+https://github.com/XenGi/teensy_library
+Text Notes 2150 10900 0    50   ~ 0
+https://github.com/XenGi/teensy.pretty
 $EndSCHEMATC
