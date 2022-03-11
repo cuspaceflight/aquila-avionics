@@ -934,17 +934,6 @@ accel_drdy
 Wire Wire Line
 	6450 1100 6700 1100
 $Comp
-L RF:Si4463 U?
-U 1 1 6268F7FD
-P 5400 6200
-F 0 "U?" H 5400 7200 50  0000 C CNN
-F 1 "Si4463" H 5400 7100 50  0000 C CNN
-F 2 "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias" H 5400 7400 50  0001 C CNN
-F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 5100 6100 50  0001 C CNN
-	1    5400 6200
-	1    0    0    -1  
-$EndComp
-$Comp
 L aquila:120591-1 J?
 U 1 1 626A7BFD
 P 1550 4650
@@ -1093,7 +1082,18 @@ Wire Wire Line
 Wire Wire Line
 	1450 3550 1900 3550
 Wire Bus Line
-	4950 1100 4950 1300
-Wire Bus Line
 	6150 2900 6150 3100
+Wire Bus Line
+	4950 1100 4950 1300
+$Comp
+L RF:Si4463 U?
+U 1 1 6268F7FD
+P 5400 6200
+F 0 "U?" H 5400 7200 50  0000 C CNN
+F 1 "Si4463" H 5400 7100 50  0000 C CNN
+F 2 "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias" H 5400 7400 50  0001 C CNN
+F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 5100 6100 50  0001 C CNN
+	1    5400 6200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
