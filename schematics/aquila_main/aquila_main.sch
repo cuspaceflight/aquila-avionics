@@ -36,7 +36,7 @@ F 3 "" H 2350 9600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:L L1
+L aquila_main-rescue:L-cusf-kicad L1
 U 1 1 621BC7E3
 P 3000 1100
 F 0 "L1" H 3050 1281 50  0000 C CNN
@@ -81,7 +81,7 @@ Wire Wire Line
 Wire Wire Line
 	2900 1100 2900 1200
 $Comp
-L cusf-kicad:R R1
+L aquila_main-rescue:R-cusf-kicad R1
 U 1 1 621BE318
 P 3050 1550
 F 0 "R1" V 3054 1594 50  0000 L CNN
@@ -92,7 +92,7 @@ F 3 "" H 3050 1550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:TPS62132 IC1
+L aquila_main-rescue:TPS62132-cusf-kicad IC1
 U 1 1 621B6BB0
 P 2500 1700
 F 0 "IC1" H 2500 2525 50  0000 C CNN
@@ -126,7 +126,7 @@ Connection ~ 3050 1700
 Wire Wire Line
 	3050 1700 3300 1700
 $Comp
-L cusf-kicad:C C1
+L aquila_main-rescue:C-cusf-kicad C1
 U 1 1 621C7671
 P 3450 1150
 F 0 "C1" V 3454 1208 50  0000 L CNN
@@ -142,7 +142,7 @@ Connection ~ 3450 1100
 Wire Wire Line
 	3450 1350 3450 1250
 $Comp
-L cusf-kicad:C C2
+L aquila_main-rescue:C-cusf-kicad C2
 U 1 1 621C9BB4
 P 1950 1600
 F 0 "C2" H 2000 1795 50  0000 C CNN
@@ -180,7 +180,7 @@ F 3 "" H 2100 2400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:C C3
+L aquila_main-rescue:C-cusf-kicad C3
 U 1 1 621CE116
 P 1650 1300
 F 0 "C3" V 1654 1358 50  0000 L CNN
@@ -191,7 +191,7 @@ F 3 "" H 1650 1300 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C4
+L aquila_main-rescue:C-cusf-kicad C4
 U 1 1 621CE655
 P 1350 1300
 F 0 "C4" V 1354 1358 50  0000 L CNN
@@ -238,7 +238,7 @@ BATT_N
 Wire Wire Line
 	2100 2300 1350 2300
 $Comp
-L cusf-kicad:3v3 #PWR?
+L aquila_main-rescue:3v3-cusf-kicad #PWR?
 U 1 1 621D7AA7
 P 3450 1100
 F 0 "#PWR?" H 3450 1210 50  0001 L CNN
@@ -255,7 +255,7 @@ Wire Notes Line
 Text Notes 3150 2600 0    50   ~ 0
 1A, 3.3V Supply
 $Comp
-L cusf-kicad:Si5515CDC Q?
+L aquila_main-rescue:Si5515CDC-cusf-kicad Q?
 U 1 1 6220014D
 P 12700 4750
 F 0 "Q?" H 12848 4796 50  0000 L CNN
@@ -267,7 +267,7 @@ F 4 "2335332" H 12700 4100 50  0001 C CNN "Farnell"
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:Si5515CDC Q?
+L aquila_main-rescue:Si5515CDC-cusf-kicad Q?
 U 2 1 62201137
 P 13350 4500
 F 0 "Q?" H 13100 4550 50  0000 L CNN
@@ -279,7 +279,7 @@ F 4 "2335332" H 13350 3850 50  0001 C CNN "Farnell"
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:L L2
+L aquila_main-rescue:L-cusf-kicad L2
 U 1 1 622093DB
 P 3000 3000
 F 0 "L2" H 3050 3181 50  0000 C CNN
@@ -321,7 +321,7 @@ Wire Wire Line
 Wire Wire Line
 	2900 3000 2900 3100
 $Comp
-L cusf-kicad:TPS62132 IC2
+L aquila_main-rescue:TPS62132-cusf-kicad IC2
 U 1 1 622093FD
 P 2500 3600
 F 0 "IC2" H 2500 4425 50  0000 C CNN
@@ -352,7 +352,7 @@ Connection ~ 3050 3600
 Wire Wire Line
 	3050 3600 3300 3600
 $Comp
-L cusf-kicad:C C5
+L aquila_main-rescue:C-cusf-kicad C5
 U 1 1 62209410
 P 3450 3050
 F 0 "C5" V 3454 3108 50  0000 L CNN
@@ -404,7 +404,7 @@ Wire Wire Line
 	3450 3000 3450 3050
 Connection ~ 3150 3000
 $Comp
-L cusf-kicad:R R?
+L aquila_main-rescue:R-cusf-kicad R?
 U 1 1 62220D78
 P 12500 4950
 F 0 "R?" V 12504 4994 50  0000 L CNN
@@ -446,7 +446,7 @@ Wire Wire Line
 	12700 4550 12700 4400
 Connection ~ 12700 4550
 $Comp
-L cusf-kicad:R R?
+L aquila_main-rescue:R-cusf-kicad R?
 U 1 1 622379D8
 P 12700 4250
 F 0 "R?" V 12704 4294 50  0000 L CNN
@@ -472,7 +472,7 @@ Wire Wire Line
 Text Label 12350 4850 2    50   ~ 0
 pyro_ch1
 $Comp
-L cusf-kicad:R R?
+L aquila_main-rescue:R-cusf-kicad R?
 U 1 1 62252943
 P 13550 4400
 F 0 "R?" V 13554 4444 50  0000 L CNN
@@ -517,7 +517,7 @@ Wire Wire Line
 	13550 5150 12700 5150
 Connection ~ 12700 5150
 $Comp
-L cusf-kicad:C C6
+L aquila_main-rescue:C-cusf-kicad C6
 U 1 1 623162D2
 P 2100 3650
 F 0 "C6" V 2196 3592 50  0000 R CNN
@@ -530,7 +530,7 @@ $EndComp
 Text Label 1450 3550 2    50   ~ 0
 pyro_en
 $Comp
-L cusf-kicad:C C7
+L aquila_main-rescue:C-cusf-kicad C7
 U 1 1 6220942E
 P 1600 3050
 F 0 "C7" V 1604 3108 50  0000 L CNN
@@ -541,7 +541,7 @@ F 3 "" H 1600 3050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C8
+L aquila_main-rescue:C-cusf-kicad C8
 U 1 1 62209434
 P 1350 3050
 F 0 "C8" V 1354 3108 50  0000 L CNN
@@ -580,7 +580,7 @@ Wire Wire Line
 	1350 3300 1600 3300
 Connection ~ 1600 3300
 $Comp
-L cusf-kicad:R R2
+L aquila_main-rescue:R-cusf-kicad R2
 U 1 1 62468E4B
 P 3050 3550
 F 0 "R2" V 3146 3506 50  0000 R CNN
@@ -593,7 +593,7 @@ $EndComp
 Wire Wire Line
 	1350 4200 2100 4200
 $Comp
-L cusf-kicad:R R3
+L aquila_main-rescue:R-cusf-kicad R3
 U 1 1 624827F3
 P 1850 3300
 F 0 "R3" H 1900 3119 50  0000 C CNN
@@ -646,7 +646,7 @@ F 3 "" H 5850 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:3v3 #PWR?
+L aquila_main-rescue:3v3-cusf-kicad #PWR?
 U 1 1 625137DC
 P 7250 1400
 F 0 "#PWR?" H 7250 1510 50  0001 L CNN
@@ -657,7 +657,7 @@ F 3 "" H 7250 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 62513E1F
 P 7250 1450
 F 0 "C?" V 7254 1508 50  0000 L CNN
@@ -668,7 +668,7 @@ F 3 "" H 7250 1450 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 6251A2DF
 P 7000 1450
 F 0 "C?" V 7004 1508 50  0000 L CNN
@@ -693,7 +693,7 @@ Wire Wire Line
 Wire Wire Line
 	7250 1600 7250 1550
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 62535AB8
 P 6950 1700
 F 0 "C?" V 6954 1758 50  0000 L CNN
@@ -704,7 +704,7 @@ F 3 "" H 6950 1700 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 62535ABE
 P 6700 1700
 F 0 "C?" V 6704 1758 50  0000 L CNN
@@ -765,7 +765,7 @@ Connection ~ 6800 2150
 Wire Wire Line
 	6800 2150 7250 2150
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 6257E52C
 P 6550 1950
 F 0 "C?" V 6554 2008 50  0000 L CNN
@@ -776,7 +776,7 @@ F 3 "" H 6550 1950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 6257E532
 P 6300 1950
 F 0 "C?" V 6304 2008 50  0000 L CNN
@@ -811,7 +811,7 @@ Connection ~ 6450 2100
 Wire Wire Line
 	6450 2100 6550 2100
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 6259291D
 P 4900 1850
 F 0 "C?" V 4904 1908 50  0000 L CNN
@@ -822,7 +822,7 @@ F 3 "" H 4900 1850 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 62592923
 P 4650 1850
 F 0 "C?" V 4654 1908 50  0000 L CNN
@@ -875,7 +875,7 @@ Connection ~ 4800 2000
 Wire Wire Line
 	4800 2000 4900 2000
 $Comp
-L cusf-kicad:3v3 #PWR?
+L aquila_main-rescue:3v3-cusf-kicad #PWR?
 U 1 1 625C7175
 P 4800 1500
 F 0 "#PWR?" H 4800 1610 50  0001 L CNN
@@ -936,12 +936,12 @@ Wire Wire Line
 $Comp
 L RF:Si4463 U?
 U 1 1 6268F7FD
-P 5400 6200
-F 0 "U?" H 5400 7200 50  0000 C CNN
-F 1 "Si4463" H 5400 7100 50  0000 C CNN
-F 2 "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias" H 5400 7400 50  0001 C CNN
-F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 5100 6100 50  0001 C CNN
-	1    5400 6200
+P 5750 4700
+F 0 "U?" H 5750 5600 50  0000 C CNN
+F 1 "Si4463" H 5750 5500 50  0000 C CNN
+F 2 "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias" H 5750 5900 50  0001 C CNN
+F 3 "https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf" H 5450 4600 50  0001 C CNN
+	1    5750 4700
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -987,7 +987,7 @@ https://github.com/XenGi/teensy_library
 Text Notes 2150 10900 0    50   ~ 0
 https://github.com/XenGi/teensy.pretty
 $Comp
-L cusf-kicad:3v3 #PWR?
+L aquila_main-rescue:3v3-cusf-kicad #PWR?
 U 1 1 622BAFBF
 P 4900 3000
 F 0 "#PWR?" H 4900 3110 50  0001 L CNN
@@ -1035,7 +1035,7 @@ Connection ~ 5000 3200
 Wire Wire Line
 	5000 3200 4900 3200
 $Comp
-L cusf-kicad:C C?
+L aquila_main-rescue:C-cusf-kicad C?
 U 1 1 62311113
 P 4900 3050
 F 0 "C?" V 4900 2900 50  0000 L CNN
@@ -1092,8 +1092,183 @@ Wire Wire Line
 	1900 3300 2100 3300
 Wire Wire Line
 	1450 3550 1900 3550
+Wire Wire Line
+	5750 4000 5850 4000
+$Comp
+L aquila_main-rescue:3v3-cusf-kicad #PWR?
+U 1 1 622EE19D
+P 4550 4000
+F 0 "#PWR?" H 4550 4110 50  0001 L CNN
+F 1 "3v3" H 4550 4123 50  0000 C CNN
+F 2 "" H 4550 4000 50  0001 C CNN
+F 3 "" H 4550 4000 50  0001 C CNN
+	1    4550 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 622FD1D4
+P 5750 5450
+F 0 "#PWR?" H 5750 5200 50  0001 C CNN
+F 1 "GND" H 5755 5277 50  0000 C CNN
+F 2 "" H 5750 5450 50  0001 C CNN
+F 3 "" H 5750 5450 50  0001 C CNN
+	1    5750 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 5400 5750 5450
+Connection ~ 5750 4000
+Wire Wire Line
+	5350 4800 5050 4800
+Wire Wire Line
+	5050 4900 5350 4900
+Wire Wire Line
+	5350 5000 5050 5000
+Text Label 5150 4800 0    50   ~ 0
+SCLK
+Text Label 5150 4900 0    50   ~ 0
+MOSI
+Text Label 5150 5000 0    50   ~ 0
+MISO
+Entry Wire Line
+	4950 4700 5050 4800
+Entry Wire Line
+	4950 4800 5050 4900
+Entry Wire Line
+	4950 4900 5050 5000
+Wire Bus Line
+	4950 4700 4850 4700
+Text Label 4850 4700 2    50   ~ 0
+SPI2
+$Comp
+L Device:Crystal_Small Y?
+U 1 1 623AB755
+P 5250 4500
+F 0 "Y?" V 5200 4700 50  0000 R CNN
+F 1 "30M" V 5300 4750 50  0000 R CNN
+F 2 "" H 5250 4500 50  0001 C CNN
+F 3 "~" H 5250 4500 50  0001 C CNN
+	1    5250 4500
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	5350 4400 5250 4400
+Wire Wire Line
+	5350 4600 5250 4600
+Text Label 4850 5100 2    50   ~ 0
+radio_cs
+Text Label 4850 5200 2    50   ~ 0
+radio_int
+Wire Wire Line
+	5350 5100 4850 5100
+Wire Wire Line
+	5350 5200 4850 5200
+NoConn ~ 6150 4900
+NoConn ~ 6150 5000
+NoConn ~ 6150 5100
+NoConn ~ 6150 5200
+NoConn ~ 6150 4400
+$Comp
+L aquila_main-rescue:C-cusf-kicad C?
+U 1 1 6245FDD3
+P 5050 4050
+F 0 "C?" V 5050 3900 50  0000 L CNN
+F 1 "1u" V 5150 3850 50  0000 L CNN
+F 2 "" H 5050 4050 50  0001 C CNN
+F 3 "" H 5050 4050 50  0001 C CNN
+	1    5050 4050
+	0    1    1    0   
+$EndComp
+$Comp
+L aquila_main-rescue:C-cusf-kicad C?
+U 1 1 6246826D
+P 4800 4050
+F 0 "C?" V 4800 3900 50  0000 L CNN
+F 1 "100n" V 4900 3850 50  0000 L CNN
+F 2 "" H 4800 4050 50  0001 C CNN
+F 3 "" H 4800 4050 50  0001 C CNN
+	1    4800 4050
+	0    1    1    0   
+$EndComp
+$Comp
+L aquila_main-rescue:C-cusf-kicad C?
+U 1 1 624707F0
+P 4550 4050
+F 0 "C?" V 4550 3900 50  0000 L CNN
+F 1 "100p" V 4650 3850 50  0000 L CNN
+F 2 "" H 4550 4050 50  0001 C CNN
+F 3 "" H 4550 4050 50  0001 C CNN
+	1    4550 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5350 4200 5050 4200
+Wire Wire Line
+	4550 4200 4550 4150
+Wire Wire Line
+	4800 4150 4800 4200
+Connection ~ 4800 4200
+Wire Wire Line
+	4800 4200 4550 4200
+Wire Wire Line
+	5050 4150 5050 4200
+Connection ~ 5050 4200
+Wire Wire Line
+	5050 4200 4800 4200
+Wire Wire Line
+	4550 4050 4550 4000
+Connection ~ 4550 4000
+Wire Wire Line
+	4550 4000 4800 4000
+Wire Wire Line
+	4800 4050 4800 4000
+Connection ~ 4800 4000
+Wire Wire Line
+	4800 4000 5050 4000
+Wire Wire Line
+	5050 4050 5050 4000
+Connection ~ 5050 4000
+Wire Wire Line
+	5050 4000 5750 4000
+$Comp
+L power:GND #PWR?
+U 1 1 624DD7BB
+P 4550 4200
+F 0 "#PWR?" H 4550 3950 50  0001 C CNN
+F 1 "GND" H 4555 4027 50  0000 C CNN
+F 2 "" H 4550 4200 50  0001 C CNN
+F 3 "" H 4550 4200 50  0001 C CNN
+	1    4550 4200
+	1    0    0    -1  
+$EndComp
+Connection ~ 4550 4200
+Wire Notes Line
+	4250 3650 7550 3650
+Wire Notes Line
+	7550 3650 7550 5750
+Wire Notes Line
+	7550 5750 4250 5750
+Wire Notes Line
+	4250 5750 4250 3650
+Text Notes 6900 5700 0    50   ~ 0
+Telemetry Radio
+Text Label 6350 4200 0    50   ~ 0
+radio_tx
+Text Label 6350 4600 0    50   ~ 0
+radio_rxp
+Text Label 6350 4700 0    50   ~ 0
+radio_rxn
+Wire Wire Line
+	6350 4200 6150 4200
+Wire Wire Line
+	6350 4600 6150 4600
+Wire Wire Line
+	6350 4700 6150 4700
 Wire Bus Line
 	4950 1100 4950 1300
 Wire Bus Line
 	6150 2900 6150 3100
+Wire Bus Line
+	4950 4700 4950 4900
 $EndSCHEMATC
