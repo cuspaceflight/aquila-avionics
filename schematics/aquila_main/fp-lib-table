@@ -1,4 +1,5 @@
 (fp_lib_table
   (lib (name "aquila")(type "KiCad")(uri "C:/Users/dlhfe/OneDrive/cam/CUSF/aquila-avionics/schematics/lib/aquila.pretty")(options "")(descr ""))
   (lib (name "teensy")(type "KiCad")(uri "C:/Users/dlhfe/OneDrive/cam/CUSF/aquila-avionics/schematics/lib/teensy.pretty")(options "")(descr ""))
+  (lib (name "Strix")(type "KiCad")(uri "C:/Users/dlhfe/OneDrive/cam/CUSF/strix/schematics/00 lib/Strix.pretty")(options "")(descr ""))
 )
