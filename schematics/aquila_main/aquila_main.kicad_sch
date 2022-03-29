@@ -8032,7 +8032,7 @@
     (property "Value" "BQ29200" (id 1) (at 173.4694 39.6041 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 171.45 27.94 0)
+    (property "Footprint" "aquila:VSOP-8" (id 2) (at 171.45 27.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "https://www.ti.com/lit/ds/symlink/bq29200.pdf?ts=1647814951091&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FBQ29200" (id 3) (at 171.45 27.94 0)
@@ -10819,7 +10819,7 @@
       (reference "U?") (unit 1) (value "Si4463") (footprint "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias")
     )
     (path "/1ccc8a4d-7413-4368-95a1-68b18fd852c8"
-      (reference "U?") (unit 1) (value "BQ29200") (footprint "")
+      (reference "U?") (unit 1) (value "BQ29200") (footprint "aquila:VSOP-8")
     )
     (path "/29ade18c-a757-4c9f-86c8-3318f90f3aba"
       (reference "U?") (unit 1) (value "LM2576S-3.3/NOPB") (footprint "aquila:TO-236_5")
