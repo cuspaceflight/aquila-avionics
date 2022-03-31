@@ -6982,7 +6982,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c0db7d31-4af1-4de6-a8b2-3c28a18d9f40)
   )
-  (text "915MHz Matching Network" (at 148.59 191.77 0)
+  (text "868MHz Matching Network" (at 148.59 191.77 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c10406b8-9afa-4d22-997a-a5168ab6c90e)
   )
@@ -8242,7 +8242,7 @@
     (property "Reference" "L?" (id 0) (at 148.59 158.75 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "11n" (id 1) (at 148.59 158.75 0)
+    (property "Value" "12n" (id 1) (at 148.59 158.75 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:L_0402" (id 2) (at 147.32 162.56 0)
@@ -8436,7 +8436,7 @@
     (property "Reference" "C?" (id 0) (at 124.46 168.91 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "1p" (id 1) (at 124.46 168.91 0)
+    (property "Value" "1p2" (id 1) (at 124.46 168.91 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:C_0402" (id 2) (at 123.19 172.72 0)
@@ -8552,7 +8552,7 @@
     (property "Reference" "L?" (id 0) (at 168.91 158.75 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "11n" (id 1) (at 168.91 158.75 0)
+    (property "Value" "12n" (id 1) (at 168.91 158.75 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:L_0402" (id 2) (at 167.64 162.56 0)
@@ -9226,7 +9226,7 @@
     (property "Reference" "C?" (id 0) (at 135.6868 165.2016 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "6n2" (id 1) (at 135.6868 167.513 90)
+    (property "Value" "6n8" (id 1) (at 135.6868 167.513 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Strix:C_0402" (id 2) (at 137.16 165.1 0)
@@ -9397,7 +9397,7 @@
     (property "Reference" "L?" (id 0) (at 107.95 156.21 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "100n" (id 1) (at 105.41 158.75 90)
+    (property "Value" "120n" (id 1) (at 105.41 158.75 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Strix:L_0402" (id 2) (at 111.76 156.21 0)
@@ -9573,7 +9573,7 @@
     (property "Reference" "L?" (id 0) (at 124.46 176.53 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "22n" (id 1) (at 124.46 176.53 0)
+    (property "Value" "24n" (id 1) (at 124.46 176.53 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:L_0402" (id 2) (at 123.19 180.34 0)
@@ -9881,7 +9881,7 @@
     (property "Reference" "L?" (id 0) (at 158.75 158.75 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "22n" (id 1) (at 158.75 158.75 0)
+    (property "Value" "24n" (id 1) (at 158.75 158.75 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:L_0402" (id 2) (at 157.48 162.56 0)
@@ -9925,7 +9925,7 @@
     (property "Reference" "C?" (id 0) (at 119.38 158.75 0)
       (effects (font (size 1.27 1.27)) (justify bottom))
     )
-    (property "Value" "4p7" (id 1) (at 119.38 158.75 0)
+    (property "Value" "5p1" (id 1) (at 119.38 158.75 0)
       (effects (font (size 1.27 1.27)) (justify top))
     )
     (property "Footprint" "Strix:C_0402" (id 2) (at 118.11 162.56 0)
@@ -10832,7 +10832,7 @@
       (reference "C?") (unit 1) (value "20p") (footprint "")
     )
     (path "/2507031b-f5f8-4904-8f00-05c1469bcb72"
-      (reference "C?") (unit 1) (value "1p") (footprint "Strix:C_0402")
+      (reference "C?") (unit 1) (value "1p2") (footprint "Strix:C_0402")
     )
     (path "/27d5dca1-8f4b-4ac0-a3bf-f07d7733003c"
       (reference "C?") (unit 1) (value "0u33") (footprint "")
@@ -10853,7 +10853,7 @@
       (reference "C?") (unit 1) (value "100n") (footprint "")
     )
     (path "/689141ce-3cb4-4f7d-80d2-c503f350478d"
-      (reference "C?") (unit 1) (value "6n2") (footprint "Strix:C_0402")
+      (reference "C?") (unit 1) (value "6n8") (footprint "Strix:C_0402")
     )
     (path "/6e3a9897-4767-45ac-8e89-755b689b7b7b"
       (reference "C?") (unit 1) (value "3p3") (footprint "Strix:C_0402")
@@ -10877,7 +10877,7 @@
       (reference "C?") (unit 1) (value "22u") (footprint "")
     )
     (path "/b06b7fb7-53f6-4d89-b46b-9418e53b1ff3"
-      (reference "C?") (unit 1) (value "4p7") (footprint "Strix:C_0402")
+      (reference "C?") (unit 1) (value "5p1") (footprint "Strix:C_0402")
     )
     (path "/c80e54df-b29e-4bec-83f1-f7d3fca646ef"
       (reference "C?") (unit 1) (value "1000u") (footprint "")
@@ -10979,25 +10979,25 @@
       (reference "L?") (unit 1) (value "68u") (footprint "")
     )
     (path "/1288b0d7-80e7-4aa8-ba26-28318595760b"
-      (reference "L?") (unit 1) (value "11n") (footprint "Strix:L_0402")
+      (reference "L?") (unit 1) (value "12n") (footprint "Strix:L_0402")
     )
     (path "/2bcdfdc0-13c6-4c2e-9736-75366b3d43f9"
-      (reference "L?") (unit 1) (value "11n") (footprint "Strix:L_0402")
+      (reference "L?") (unit 1) (value "12n") (footprint "Strix:L_0402")
     )
     (path "/479753ae-6b30-4476-9bcb-23c9de27d17f"
       (reference "L?") (unit 1) (value "18n") (footprint "Strix:L_0402")
     )
     (path "/79bfbd2f-d120-4bb9-b75e-4a2b67982552"
-      (reference "L?") (unit 1) (value "100n") (footprint "Strix:L_0402")
+      (reference "L?") (unit 1) (value "120n") (footprint "Strix:L_0402")
     )
     (path "/7b0286f7-fbd0-424c-b380-5667a0d39bc5"
       (reference "L?") (unit 1) (value "3n3") (footprint "Strix:L_0402")
     )
     (path "/89ed38eb-1140-4ef1-a212-5194d0297225"
-      (reference "L?") (unit 1) (value "22n") (footprint "Strix:L_0402")
+      (reference "L?") (unit 1) (value "24n") (footprint "Strix:L_0402")
     )
     (path "/af4782b6-37a5-400f-8446-daf53b8807d6"
-      (reference "L?") (unit 1) (value "22n") (footprint "Strix:L_0402")
+      (reference "L?") (unit 1) (value "24n") (footprint "Strix:L_0402")
     )
     (path "/de56e1d2-438f-4de1-963e-76768a4e6948"
       (reference "L?") (unit 1) (value "150u") (footprint "")
