@@ -14,7 +14,7 @@ Schematics and firmware for Aquila flight computer.
 * **Altitude** - 150km
 * **Speed** - 1500m/s
 * **Flexibility** - Exact flight and recovery profile is TBC
-*  **Budget** - £150
+*  **Budget** - ï¿½150
 
 # Overview
 What follows here is a very brief overview of the design, broken down by component. It's aim is to familiarise the reader with what this project includes and some of the decisions made.
@@ -23,7 +23,7 @@ The computer is designed to run from two 18650 Li-Ions in series. A battery mana
 
 Additionally, a 3V CR2032 type cell is mounted to the board. This maintains real time clocks in the microcontroller and GPS receiver, improving resilience against power cycle events during flight.
 ## Power supplies
-The board has two power supplies: 3.3V 3A and 5V 3A. The 3.3V supply powers most of the electronics on the board and is permanently on. The 5V supply is dedicated to pyrotechnics and servos as required by the recovery system. It is switched on and off by the microcontroller to conserve power when not needed and as a safety layer. A safety pin (in the form of a 2.5 mm audio jack) can be inserted into a socket on the board to physically disconnect the pyro channels from the power supply, eliminating the risk of unintentionally activating pyrotechnics during any activities leading up to launch. 
+The board has two power supplies: 3.3V 3A and 5V 3A. The 3.3V supply powers most of the electronics on the board and is permanently on. The 5V supply is dedicated to pyrotechnics and servos as required by the recovery system. It is switched on and off by the microcontroller to conserve power when not needed and as a safety layer. A terminal is provided for an external safety switch. When shorted, this terminal disables the pyro power supply, eliminating the risk of unintentionally activating pyrotechnics during any activities leading up to launch.
 ## Sensors
 ### Barometer
 A barometer is mounted on the board to measure atmospheric pressure. This is particularly useful during descent to deploy parachute stages at appropriate altitudes close to the ground. The model used is a MS5611-01BA03. It has a resolution on the order of tenths of millibar, but a minimum pressure of 10 millibar limits it's usefulness to below 30 km altitude.
