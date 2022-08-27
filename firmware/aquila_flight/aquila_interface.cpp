@@ -18,14 +18,21 @@ void AQUILA::begin(){
   pinMode(pin_accel_drdy, INPUT);
 
   pinMode(pin_baro_ext_cs, OUTPUT);
+  pinMode(pin_baro_cs, OUTPUT);
 
   // initialise sensors and simply check they are alive
   if(accel.begin(pin_accel_cs) != 173){
     Serial.println("Accelerometer error");
     while(1){}
   }
-  if(baro_ext.begin(pin_baro_ext_cs) == 0){
-    Serial.println("Barometer error");
+
+  if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 0){
+    Serial.println("External barometer error");
+    while(1){}
+  }
+
+  if(baro.begin(pin_baro_cs, MS5611) == 0){
+    Serial.println("Onboard barometer error");
     while(1){}
   }
   
@@ -39,3 +46,7 @@ float AQUILA::get_accel_z() { return accel.z_g; }
 bool AQUILA::poll_baro_ext() { return baro_ext.poll_measurement(); }
 float AQUILA::get_ext_temperature() { return baro_ext.temperature/100.0; }
 float AQUILA::get_ext_pressure() { return baro_ext.pressure/100.0; }
+
+bool AQUILA::poll_baro_int() { return baro.poll_measurement(); }
+float AQUILA::get_int_temperature() { return baro.temperature/100.0; }
+float AQUILA::get_int_pressure() { return baro.pressure/100.0; }

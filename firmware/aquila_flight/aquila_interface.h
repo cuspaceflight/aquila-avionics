@@ -3,11 +3,12 @@
 #include "Arduino.h"
 #include "SPI.h"
 #include "adxl357.h"
-#include "ms5607_02ba03.h"
+#include "ms56_11_07.h"
 
 #define pin_accel_cs 2
 #define pin_accel_drdy 30
 
+#define pin_baro_cs 3
 #define pin_baro_ext_cs 4
 
 
@@ -22,7 +23,12 @@ class AQUILA {
     bool poll_baro_ext();
     float get_ext_pressure();
     float get_ext_temperature();
+
+    bool poll_baro_int();
+    float get_int_pressure();
+    float get_int_temperature();
   private:
     ADXL357 accel;
-    MS5607 baro_ext;
+    MS56_11_07 baro_ext;
+    MS56_11_07 baro;
 };

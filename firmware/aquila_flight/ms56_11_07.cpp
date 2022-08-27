@@ -1,8 +1,8 @@
 /* Daniel Fearn
  *  20/08/2022
  *  
- *  This class handles communication with and calculations for a MS5607-02BA03 barometer
- *  (very similar to MS5611 but slight difference in the calculations so be careful!)
+ *  This class handles communication with and calculations for a MS5607 or MS5611 barometer
+ *  (theres one slight difference in calculating a reading)
  *  The sensor is connected to SPI1 - the second SPI bus on the controller.
  *  The sensor has a unique way of outputting data. You must:
  *  0. request a temperature reading
@@ -19,11 +19,14 @@
 
 #include "Arduino.h"
 #include "SPI.h"
-#include "ms5607_02ba03.h"
+#include "ms56_11_07.h"
 
-uint32_t MS5607::begin(byte pin_cs) {
+
+
+uint32_t MS56_11_07::begin(byte pin_cs, MS56_type sensor_type) {
   cs = pin_cs;
   spi_speed = 4000000;
+  type = sensor_type;
 
   // reset
   send_command(0x1E);
@@ -39,10 +42,12 @@ uint32_t MS5607::begin(byte pin_cs) {
   c[4] = read_reg(0xA8, 2);
   c[5] = read_reg(0xAA, 2);
   c[6] = read_reg(0xAC, 2);
+
+  // return something non-zero to check the chip is alive
   return c[6];
 }
 
-bool MS5607::poll_measurement() {
+bool MS56_11_07::poll_measurement() {
   if (measurement_stage == 0){ // request temp reading
     
     send_command(0x48);
@@ -70,8 +75,17 @@ bool MS5607::poll_measurement() {
 
     int64_t dT = D2 - (c[5]*256);
     temperature = 2000 + ((dT*c[6])/8388608);
-    float off = (c[2]*131072) + (c[4] * dT)/64;
-    int64_t sens = c[1]*65536 + (c[3] * dT)/128;
+    float off;
+    int64_t sens;
+
+    if (type == MS5607) {
+      off = (c[2]*131072) + (c[4] * dT)/64;
+      sens  = c[1]*65536 + (c[3] * dT)/128;
+    } else { // MS5611
+      off = (c[2]*65536) + (c[4] * dT)/128;
+      sens = c[1]*32768 + (c[3] * dT)/256;
+    }
+
     pressure = (((D1 * sens)/2097152) - off)/32768;
     return true;
   }
@@ -79,7 +93,7 @@ bool MS5607::poll_measurement() {
   return false;
 }
 
-uint32_t MS5607::read_reg(byte address, uint8_t num_bytes) {
+uint32_t MS56_11_07::read_reg(byte address, uint8_t num_bytes) {
   SPI1.beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE0));
   digitalWrite(cs, LOW);
   SPI1.transfer(address);
@@ -95,7 +109,7 @@ uint32_t MS5607::read_reg(byte address, uint8_t num_bytes) {
   return result;
 }
 
-uint32_t MS5607::send_command(byte command) {
+uint32_t MS56_11_07::send_command(byte command) {
   SPI1.beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE0));
   digitalWrite(cs, LOW);
   unsigned int result = SPI1.transfer(command);

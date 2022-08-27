@@ -3,14 +3,20 @@
 #include "Arduino.h"
 #include "SPI.h"
 
-class MS5607 {
+enum MS56_type {
+  MS5611,
+  MS5607
+};
+
+class MS56_11_07 {
   public:
-    uint32_t begin(byte pin_cs);
+    uint32_t begin(byte pin_cs, MS56_type sensor_type);
     bool poll_measurement();
     int32_t pressure;
     int32_t temperature;
   private:
     byte cs;
+    MS56_type type;
     float c[7];
     uint32_t D1;
     uint32_t D2;
