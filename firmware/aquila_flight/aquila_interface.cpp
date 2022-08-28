@@ -20,6 +20,8 @@ void AQUILA::begin(){
   pinMode(pin_baro_ext_cs, OUTPUT);
   pinMode(pin_baro_cs, OUTPUT);
 
+  pinMode(pin_batt_v, INPUT);
+
   // initialise Teensy 4.1 Real-Time Clock
   if(!rtc.begin()) {
     Serial.println("Real-Time Clock not set");
@@ -59,3 +61,5 @@ float AQUILA::get_ext_pressure() { return baro_ext.pressure/100.0; }
 bool AQUILA::poll_baro_int() { return baro.poll_measurement(); }
 float AQUILA::get_int_temperature() { return baro.temperature/100.0; }
 float AQUILA::get_int_pressure() { return baro.pressure/100.0; }
+
+float AQUILA::get_batt_voltage() { return analogRead(pin_batt_v)/1024.0 * 3.2 * 3; }

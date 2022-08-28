@@ -48,6 +48,10 @@ void loop() {
   Serial.print(aquila.get_int_pressure());
   Serial.print(", ");
   Serial.println(abs_altitude(aquila.get_int_pressure()));
+
+  Serial.print("Battery voltage: ");
+  Serial.println(aquila.get_batt_voltage());
+
   Serial.println();
 
 }

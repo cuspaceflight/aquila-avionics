@@ -12,6 +12,7 @@
 #define pin_baro_cs 3
 #define pin_baro_ext_cs 4
 
+#define pin_batt_v 24
 
 class AQUILA {
   public:
@@ -32,6 +33,8 @@ class AQUILA {
     bool poll_baro_int();
     float get_int_pressure();
     float get_int_temperature();
+
+    float get_batt_voltage();
   private:
     TEENSY_RTC rtc;
     ADXL357 accel;
