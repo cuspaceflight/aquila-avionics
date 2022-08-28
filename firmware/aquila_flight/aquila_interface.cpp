@@ -20,6 +20,12 @@ void AQUILA::begin(){
   pinMode(pin_baro_ext_cs, OUTPUT);
   pinMode(pin_baro_cs, OUTPUT);
 
+  // initialise Teensy 4.1 Real-Time Clock
+  if(!rtc.begin()) {
+    Serial.println("Real-Time Clock not set");
+    while(1){}
+  }
+
   // initialise sensors and simply check they are alive
   if(accel.begin(pin_accel_cs) != 173){
     Serial.println("Accelerometer error");
@@ -37,6 +43,9 @@ void AQUILA::begin(){
   }
   
 }
+
+void AQUILA::rtc_datetime(char* outstr) { rtc.get_datetime(outstr); }
+uint32_t AQUILA::rtc_unix() { return rtc.get_unix(); }
 
 void AQUILA::update_accel() { accel.read_measurement(); }
 float AQUILA::get_accel_x() { return accel.x_g; }

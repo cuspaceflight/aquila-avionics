@@ -2,6 +2,7 @@
 
 #include "Arduino.h"
 #include "SPI.h"
+#include "rtc.h"
 #include "adxl357.h"
 #include "ms56_11_07.h"
 
@@ -15,6 +16,10 @@
 class AQUILA {
   public:
     void begin();
+
+    void rtc_datetime(char* outstr);
+    uint32_t rtc_unix();
+
     void update_accel();
     float get_accel_x();
     float get_accel_y();
@@ -28,6 +33,7 @@ class AQUILA {
     float get_int_pressure();
     float get_int_temperature();
   private:
+    TEENSY_RTC rtc;
     ADXL357 accel;
     MS56_11_07 baro_ext;
     MS56_11_07 baro;
