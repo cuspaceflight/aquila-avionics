@@ -27,17 +27,17 @@ void AQUILA::begin(){
   }
 
   // initialise sensors and simply check they are alive
-  if(accel.begin(pin_accel_cs) != 173){
+  if(accel.begin(pin_accel_cs) != 0xAD){
     Serial.println("Accelerometer error");
     while(1){}
   }
 
-  if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 0){
+  if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
     Serial.println("External barometer error");
     while(1){}
   }
 
-  if(baro.begin(pin_baro_cs, MS5611) == 0){
+  if(baro.begin(pin_baro_cs, MS5611) == 65535){
     Serial.println("Onboard barometer error");
     while(1){}
   }
