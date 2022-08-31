@@ -13,6 +13,7 @@
 void AQUILA::begin(){
   SPI.begin();
   SPI1.begin();
+  Wire.begin();
 
   pinMode(pin_accel_cs, OUTPUT);
   pinMode(pin_accel_drdy, INPUT);
@@ -25,23 +26,28 @@ void AQUILA::begin(){
   // initialise Teensy 4.1 Real-Time Clock
   if(!rtc.begin()) {
     Serial.println("Real-Time Clock not set");
-    while(1){}
+    //while(1){}
   }
 
   // initialise sensors and simply check they are alive
   if(accel.begin(pin_accel_cs) != 0xAD){
     Serial.println("Accelerometer error");
-    while(1){}
+    //while(1){}
   }
 
   if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
     Serial.println("External barometer error");
-    while(1){}
+    //while(1){}
   }
 
   if(baro.begin(pin_baro_cs, MS5611) == 65535){
     Serial.println("Onboard barometer error");
-    while(1){}
+    //while(1){}
+  }
+
+  if(imu.begin() != 104) {
+    Serial.println("MPU6050 error");
+    // while(1){}
   }
   
 }
@@ -61,5 +67,13 @@ float AQUILA::get_ext_pressure() { return baro_ext.pressure/100.0; }
 bool AQUILA::poll_baro_int() { return baro.poll_measurement(); }
 float AQUILA::get_int_temperature() { return baro.temperature/100.0; }
 float AQUILA::get_int_pressure() { return baro.pressure/100.0; }
+
+void AQUILA::update_imu() { imu.read(); }
+float AQUILA::get_imu_accel_x() { return imu.accel_x; }
+float AQUILA::get_imu_accel_y() { return imu.accel_y; }
+float AQUILA::get_imu_accel_z() { return imu.accel_z; }
+float AQUILA::get_imu_gyro_x() { return imu.gyro_x; }
+float AQUILA::get_imu_gyro_y() { return imu.gyro_y; }
+float AQUILA::get_imu_gyro_z() { return imu.gyro_z; }
 
 float AQUILA::get_batt_voltage() { return analogRead(pin_batt_v)/1024.0 * 3.2 * 3; }

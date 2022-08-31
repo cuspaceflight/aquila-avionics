@@ -2,9 +2,11 @@
 
 #include "Arduino.h"
 #include "SPI.h"
+#include "Wire.h"
 #include "rtc.h"
 #include "adxl357.h"
 #include "ms56_11_07.h"
+#include "mpu6050.h"
 
 #define pin_accel_cs 2
 #define pin_accel_drdy 30
@@ -34,10 +36,19 @@ class AQUILA {
     float get_int_pressure();
     float get_int_temperature();
 
+    void update_imu();
+    float get_imu_accel_x();
+    float get_imu_accel_y();
+    float get_imu_accel_z();
+    float get_imu_gyro_x();
+    float get_imu_gyro_y();
+    float get_imu_gyro_z();
+
     float get_batt_voltage();
   private:
     TEENSY_RTC rtc;
     ADXL357 accel;
     MS56_11_07 baro_ext;
     MS56_11_07 baro;
+    MPU6050 imu;
 };

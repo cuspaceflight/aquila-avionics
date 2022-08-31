@@ -7,7 +7,7 @@
  * 
  */
 
-#define SEA_LEVEL 1025
+#define SEA_LEVEL 1029
 
 #include "aquila_interface.h"
 
@@ -21,6 +21,7 @@ void setup() {
 
 void loop() {
   aquila.update_accel();
+  aquila.update_imu();
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
 
@@ -28,12 +29,26 @@ void loop() {
   aquila.rtc_datetime(timestamp);
   Serial.println(timestamp);
 
-  Serial.print("Accelerations: ");
+  Serial.print("Accelerations (ADXL357): ");
   Serial.print(aquila.get_accel_x(), 4);
   Serial.print(", ");
   Serial.print(aquila.get_accel_y(), 4);
   Serial.print(", ");
   Serial.println(aquila.get_accel_z(), 4);
+
+  Serial.print("Accelerations (MPU6050): ");
+  Serial.print(aquila.get_imu_accel_x(), 4);
+  Serial.print(", ");
+  Serial.print(aquila.get_imu_accel_y(), 4);
+  Serial.print(", ");
+  Serial.println(aquila.get_imu_accel_z(), 4);
+
+  Serial.print("Gyroscopes: ");
+  Serial.print(aquila.get_imu_gyro_x(), 4);
+  Serial.print(", ");
+  Serial.print(aquila.get_imu_gyro_y(), 4);
+  Serial.print(", ");
+  Serial.println(aquila.get_imu_gyro_z(), 4);
 
   Serial.print("External barometer: ");
   Serial.print(aquila.get_ext_temperature());
