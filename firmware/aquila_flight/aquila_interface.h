@@ -16,6 +16,17 @@
 
 #define pin_batt_v 24
 
+#define pin_pyro_arm 6
+#define pin_pyro_cont1 41
+#define pin_pyro1 40
+#define pin_pyro_cont2 39
+#define pin_pyro2 38
+#define pin_pyro_cont3 37
+#define pin_pyro3 36
+#define pin_pyro_cont4 35
+#define pin_pyro4 34
+
+
 class AQUILA {
   public:
     void begin();
@@ -45,10 +56,19 @@ class AQUILA {
     float get_imu_gyro_z();
 
     float get_batt_voltage();
+
+    void arm_pyro();
+    void disarm_pyro();
+    bool pyro_is_armed();
+    bool pyro_continuity(uint8_t pyro_number);
+    bool fire_pyro(uint8_t pyro_number);
+
   private:
     TEENSY_RTC rtc;
     ADXL357 accel;
     MS56_11_07 baro_ext;
     MS56_11_07 baro;
     MPU6050 imu;
+
+    bool pyro_armed;
 };

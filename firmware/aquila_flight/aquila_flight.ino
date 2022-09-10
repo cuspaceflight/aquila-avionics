@@ -24,6 +24,11 @@ void loop() {
   aquila.update_imu();
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
+  if (millis()%15000 > 10000) {
+    aquila.disarm_pyro();
+  } else if (millis()%15000 > 5000) {
+    aquila.arm_pyro();
+  }
 
   char timestamp[32];
   aquila.rtc_datetime(timestamp);
@@ -66,6 +71,17 @@ void loop() {
 
   Serial.print("Battery voltage: ");
   Serial.println(aquila.get_batt_voltage());
+
+  Serial.print("Pyro armed: ");
+  Serial.println(aquila.pyro_is_armed());
+  Serial.print("Pyro continuities: ");
+  Serial.print(aquila.pyro_continuity(1));
+  Serial.print(", ");
+  Serial.print(aquila.pyro_continuity(2));
+  Serial.print(", ");
+  Serial.print(aquila.pyro_continuity(3));
+  Serial.print(", ");
+  Serial.println(aquila.pyro_continuity(4));
 
   Serial.println();
 
