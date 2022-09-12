@@ -1,0 +1,19 @@
+----- ADXL357 -----
+x sensitivity: 12535.15
+x offset: 64.44
+y sensitivity: 12622.60
+y offset: 163.36
+z sensitivity: 12157.37
+z offset: 1270.68
+----- MPU6050 Acceleromter -----
+x sensitivity: 2045.54
+x offset: 147.62
+y sensitivity: 2048.25
+y offset: -31.73
+z sensitivity: 2099.57
+z offset: -51.80
+----- MPU6050 Gyroscopes -----
+x offset: -51.39
+y offset: -21.91
+z offset: 1.77
+All offsets in LSB, accelerometer sensitivities in LSB /g
