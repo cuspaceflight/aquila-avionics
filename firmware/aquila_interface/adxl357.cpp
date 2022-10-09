@@ -24,12 +24,6 @@ byte ADXL357::begin(byte pin_cs, int32_t cals[6]) {
   write_reg(0x28, 0b00000010);
   write_reg(0x2C, 0b10000011);
   write_reg(0x2D, 0b00000000);
-  Serial.println(calibrations[0]);
-  Serial.println(calibrations[1]);
-  Serial.println(calibrations[2]);
-  Serial.println(calibrations[3]);
-  Serial.println(calibrations[4]);
-  Serial.println(calibrations[5]);
   return read_reg(0x00, 1);
 }
 
