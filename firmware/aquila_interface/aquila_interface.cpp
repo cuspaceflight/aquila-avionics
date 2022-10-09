@@ -39,6 +39,8 @@ void AQUILA::begin(){
   digitalWrite(pin_pyro3, LOW);
   digitalWrite(pin_pyro4, LOW);
 
+  int32_t adxl357_calibration[] = {accel_x_sens, accel_x_offset, accel_y_sens, accel_y_offset, accel_z_sens, accel_z_offset};
+
   // initialise Teensy 4.1 Real-Time Clock
   if(!rtc.begin()) {
     Serial.println("Real-Time Clock not set");
@@ -46,7 +48,7 @@ void AQUILA::begin(){
   }
 
   // initialise sensors and simply check they are alive
-  if(accel.begin(pin_accel_cs) != 0xAD){
+  if(accel.begin(pin_accel_cs, adxl357_calibration) != 0xAD){
     Serial.println("Accelerometer error");
     //while(1){}
   }

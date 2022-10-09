@@ -11,13 +11,25 @@
 
 #include "adxl357.h"
 
-byte ADXL357::begin(byte pin_cs) {
+byte ADXL357::begin(byte pin_cs, int32_t cals[6]) {
   cs = pin_cs;
+  calibrations[0] = cals[0];
+  calibrations[1] = cals[1];
+  calibrations[2] = cals[2];
+  calibrations[3] = cals[3];
+  calibrations[4] = cals[4];
+  calibrations[5] = cals[5];
+
   spi_speed = 10000000;
   write_reg(0x28, 0b00000010);
   write_reg(0x2C, 0b10000011);
   write_reg(0x2D, 0b00000000);
-
+  Serial.println(calibrations[0]);
+  Serial.println(calibrations[1]);
+  Serial.println(calibrations[2]);
+  Serial.println(calibrations[3]);
+  Serial.println(calibrations[4]);
+  Serial.println(calibrations[5]);
   return read_reg(0x00, 1);
 }
 
@@ -25,10 +37,10 @@ void ADXL357::read_measurement() {
   int32_t raw_x = (read_reg(0x08, 3)<<8);
   int32_t raw_y = (read_reg(0x0B, 3)<<8);
   int32_t raw_z = (read_reg(0x0E, 3)<<8);
-
-  x_g = (raw_x/4096.0 - accel_x_offset) / accel_x_sens;
-  y_g = (raw_y/4096.0 - accel_y_offset) / accel_y_sens;
-  z_g = (raw_z/4096.0 - accel_z_offset) / accel_z_sens;
+  
+  x_g = (raw_x/4096.0 - calibrations[1]) / (float)calibrations[0];
+  y_g = (raw_y/4096.0 - calibrations[3]) / (float)calibrations[2];
+  z_g = (raw_z/4096.0 - calibrations[5]) / (float)calibrations[4];
 }
 
 uint32_t ADXL357::read_reg(byte address, uint8_t num_bytes) {
