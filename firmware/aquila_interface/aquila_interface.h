@@ -3,6 +3,7 @@
 #include "Arduino.h"
 #include "SPI.h"
 #include "Wire.h"
+#include "Servo.h"
 #include "rtc.h"
 #include "adxl357.h"
 #include "ms56_11_07.h"
@@ -33,6 +34,10 @@
 #define pin_pyro_cont4 35
 #define pin_pyro4 34
 
+#define pin_servo1 9
+#define pin_servo2 8
+#define pin_servo3 7
+#define pin_servo4 10
 
 class AQUILA {
   public:
@@ -70,12 +75,18 @@ class AQUILA {
     bool pyro_continuity(uint8_t pyro_number);
     bool fire_pyro(uint8_t pyro_number);
 
+    void move_all_servos(uint8_t angle);
+
   private:
     TEENSY_RTC rtc;
     ADXL357 accel;
     MS56_11_07 baro_ext;
     MS56_11_07 baro;
     MPU6050 imu;
+    Servo sv1;
+    Servo sv2;
+    Servo sv3;
+    Servo sv4;
 
     bool pyro_armed;
 };

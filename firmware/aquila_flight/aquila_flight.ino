@@ -26,11 +26,20 @@ uint32_t hz10_time;
 uint32_t hz100_time;
 uint32_t curr_time;
 
+// system parameters
+uint8_t servo_open;
+uint8_t servo_closed;
+uint8_t servo_pos;
+
 void setup() {
   state = LOCKED;
   prevState = state;
 
   printing_params = false;
+
+  servo_open = 0;
+  servo_closed = 180;
+  servo_pos = 0;
 
   Serial.begin(19200);
   aquila.begin();
@@ -120,7 +129,8 @@ void handle_serial_command(){
 
   } else if (cmd == 'V') {
     Serial.println(">> toggle servo position");
-    // TODO implement servos
+    servo_pos = (servo_pos == servo_open) ? servo_closed : servo_open;
+    aquila.move_all_servos(servo_pos);
 
   } else if (cmd == 'A') {
     Serial.println(">> arm pyro");
@@ -130,7 +140,7 @@ void handle_serial_command(){
     Serial.println(">> disarm pyro");
     aquila.disarm_pyro();
   } else {
-    Serial.println(">> command not recognised")
+    Serial.println(">> command not recognised");
   }
 
 }

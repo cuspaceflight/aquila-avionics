@@ -39,6 +39,11 @@ void AQUILA::begin(){
   digitalWrite(pin_pyro3, LOW);
   digitalWrite(pin_pyro4, LOW);
 
+  sv1.attach(pin_servo1);
+  sv2.attach(pin_servo2);
+  sv3.attach(pin_servo3);
+  sv4.attach(pin_servo4);
+
   int32_t adxl357_calibration[] = {accel_x_sens, accel_x_offset, accel_y_sens, accel_y_offset, accel_z_sens, accel_z_offset};
 
   // initialise Teensy 4.1 Real-Time Clock
@@ -157,4 +162,11 @@ bool AQUILA::fire_pyro(uint8_t pyro_number) {
     break;
   }
   return true;
+}
+
+void AQUILA::move_all_servos(uint8_t angle) {
+  sv1.write(angle);
+  sv2.write(angle);
+  sv3.write(angle);
+  sv4.write(angle);
 }
