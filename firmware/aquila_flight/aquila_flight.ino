@@ -6,6 +6,7 @@
  * 
  */
 
+// REQ[32][34]
 #define SEA_LEVEL 1020
 
 #define pin_accel_int 30
@@ -34,12 +35,18 @@ uint32_t curr_time;
 uint8_t servo_open = 0; 
 uint8_t servo_closed = 180;
 uint8_t servo_pos = 0;
+// REQ[7]
+uint32_t descent_delay_millis = 2000;
+uint32_t time_to_descent = 0;
 
+// altitude and velocity
 // REQ[30]
 volatile float altitude = 0;
 volatile float velocity = 0;
+volatile float acceleration = 0;
 volatile uint32_t last_integ_micros = 0;
-float g = 9.81;
+float g_cal = 9.81; // g used for acceloremeter calibration
+float g_local = 9.81; // constant for low altitude, must computed at high altitudes. Mid latitude value used
 
 void setup() {
   Serial.begin(19200);
@@ -86,16 +93,17 @@ void hz100(){
       break;
     case PAD:
       handle_serial_command(); // REQ[35][23]
+      if (velocity > 0.5) {state = BURN;} // REQ[4]
       break;
     case BURN:
-
+      if (acceleration < 0) {state = COAST;} // REQ[5]
       break;
     case COAST:
-
+      if (velocity < 0) {state = APOGEE;} // REQ[6]
       break;
     case APOGEE:
-
-     break;
+      if (time_to_descent != 0 && millis() > time_to_descent) {state = DESCENT;} // REQ[7]
+      break;
     case DESCENT:
 
       break;
@@ -108,13 +116,19 @@ void hz100(){
   if (state != prevState) {
     switch (state) {
       case LOCKED: // REQ[46]
-        // reset altitude/velocity
+        altitude = 0;
+        velocity = 0;
+        last_integ_micros = 0;
         break;
       case APOGEE: // REQ[9]
+        time_to_descent = millis() + descent_delay_millis; // REQ[7]
         // deploy nosecone
         break;
       case DESCENT: // REQ[10]
         // deploy parachutes
+        break;
+
+      default:
         break;
     }
   }
@@ -261,16 +275,24 @@ void accel_integration() {
     return;
   }
 
-  float accel = aquila.get_accel_z()*g;
+  float accel = aquila.get_accel_z(); // g
+
+  if (abs(accel - 1) < 0.01 && (state == PAD)) { // REQ[47]
+    accel = 1;
+  } 
+
+  acceleration = accel * g_cal; // m/s/s
 
   float dt = (now - last_integ_micros)*1e-6;
-  velocity += (accel - g) * dt;
+  velocity += (acceleration - g_local) * dt;
   altitude += velocity * dt;
 
   last_integ_micros = now;
 
 }
 
+// roughly converts pressure reading to altitude
+// REQ[32][34]
 float abs_altitude(float pressure, float sea_level) {
   return 44330*(1-pow((pressure/sea_level), (1/5.255)));
 }
