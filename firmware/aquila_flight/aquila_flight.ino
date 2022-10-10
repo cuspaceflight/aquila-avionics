@@ -8,6 +8,8 @@
 
 #define SEA_LEVEL 1020
 
+#define pin_accel_int 30
+
 #include <aquila_interface.h>
 
 AQUILA aquila;
@@ -33,9 +35,19 @@ uint8_t servo_open = 0;
 uint8_t servo_closed = 180;
 uint8_t servo_pos = 0;
 
+// REQ[30]
+volatile float altitude = 0;
+volatile float velocity = 0;
+volatile uint32_t last_integ_micros = 0;
+float g = 9.81;
+
 void setup() {
   Serial.begin(19200);
   aquila.begin();
+
+  // REQ[30]
+  pinMode(pin_accel_int, INPUT);
+  attachInterrupt(digitalPinToInterrupt(pin_accel_int), accel_integration, RISING);
 
   hz10_time = hz100_time = micros(); // REQ[25][26][27][28][29]
 }
@@ -63,7 +75,6 @@ void hz10(){
 // REQ[25][26][29]
 void hz100(){
   // REQ[31]
-  aquila.update_accel();
   aquila.update_imu();
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
@@ -229,7 +240,35 @@ void print_serial_state(){
     Serial.println("pyrotechnics must be armed to test continuity");
   }
 
+  Serial.print("Velocity estimate: ");
+  Serial.println(velocity, 4);
+  Serial.print("Altitude estimate: ");
+  Serial.println(altitude, 4);
+
   Serial.println();
+}
+
+// handles accelerometer interrupt
+// REQ[30]
+void accel_integration() {
+  if (state == LOCKED) {return;} // REQ[18]
+
+  aquila.update_accel();
+
+  uint32_t now = micros();
+  if (last_integ_micros == 0) {
+    last_integ_micros = now;
+    return;
+  }
+
+  float accel = aquila.get_accel_z()*g;
+
+  float dt = (now - last_integ_micros)*1e-6;
+  velocity += (accel - g) * dt;
+  altitude += velocity * dt;
+
+  last_integ_micros = now;
+
 }
 
 float abs_altitude(float pressure, float sea_level) {
