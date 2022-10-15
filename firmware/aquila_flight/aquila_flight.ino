@@ -12,6 +12,7 @@
 #define pin_accel_int 30
 
 #include <aquila_interface.h>
+#include <SD.h>
 
 AQUILA aquila;
 
@@ -39,6 +40,10 @@ uint8_t servo_pos = 0;
 uint32_t descent_delay_millis = 2000;
 uint32_t time_to_descent = 0;
 
+// data logging
+// REQ[32]
+File datafile;
+
 // altitude and velocity
 // REQ[30]
 volatile float altitude = 0;
@@ -56,6 +61,14 @@ void setup() {
   // REQ[30]
   pinMode(pin_accel_int, INPUT);
   attachInterrupt(digitalPinToInterrupt(pin_accel_int), accel_integration, RISING);
+
+  // REQ[32]
+  if(!SD.begin(BUILTIN_SDCARD)){
+    Serial.println("Critical SD card error");
+    while(!SD.begin(BUILTIN_SDCARD)){}
+  }
+  SD.remove("aquila_log.csv");
+  datafile = SD.open("aquila_log.csv", FILE_WRITE);
 
   hz10_time = hz100_time = micros(); // REQ[25][26][27][28][29]
 }
@@ -86,6 +99,9 @@ void hz100(){
   aquila.update_imu();
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
+
+  // REQ[32]
+  log_sd_state();
 
   // state switching
   switch(state) {
@@ -264,6 +280,52 @@ void print_serial_state(){
   Serial.println();
 }
 
+// prints all data to a line in the SD file
+void log_sd_state(){
+  // time
+  uint32_t time = aquila.rtc_unix();
+  datafile.print(time); sep();
+  datafile.print(micros()); sep();
+  // flight state
+  datafile.print(StateNames[state]); sep();
+  // velocity/altitude estimates
+  datafile.print(velocity); sep();
+  datafile.print(altitude); sep();
+  // ADXL357
+  datafile.print(aquila.get_accel_x()); sep();
+  datafile.print(aquila.get_accel_y()); sep();
+  datafile.print(aquila.get_accel_z()); sep();
+  // MPU6050
+  datafile.print(aquila.get_imu_accel_x()); sep();
+  datafile.print(aquila.get_imu_accel_y()); sep();
+  datafile.print(aquila.get_imu_accel_z()); sep();
+  datafile.print(aquila.get_imu_gyro_x()); sep();
+  datafile.print(aquila.get_imu_gyro_y()); sep();
+  datafile.print(aquila.get_imu_gyro_z()); sep();
+  // External barometer
+  datafile.print(aquila.get_ext_temperature()); sep();
+  datafile.print(aquila.get_ext_pressure()); sep();
+  // Internal barometer
+  datafile.print(aquila.get_int_temperature()); sep();
+  datafile.print(aquila.get_int_pressure()); sep();
+  // Battery voltage
+  datafile.print(aquila.get_batt_voltage()); sep();
+  // Pyros
+  datafile.print(aquila.pyro_is_armed()); sep();
+  datafile.print(aquila.pyro_continuity(1)); sep();
+  datafile.print(aquila.pyro_continuity(2)); sep();
+  datafile.print(aquila.pyro_continuity(3)); sep();
+  datafile.print(aquila.pyro_continuity(4)); sep();
+  // Servos
+  datafile.println(servo_pos);
+  
+
+  datafile.flush();
+}
+void sep(){
+  datafile.print(',');
+}
+
 // handles accelerometer interrupt
 // REQ[30]
 void accel_integration() {
@@ -298,3 +360,5 @@ void accel_integration() {
 float abs_altitude(float pressure, float sea_level) {
   return 44330*(1-pow((pressure/sea_level), (1/5.255)));
 }
+
+void 
