@@ -349,9 +349,6 @@ void log_sd_state(){
   datafile.println(line);
   datafile.flush();
 }
-void sep(){
-  datafile.print(',');
-}
 
 // handles accelerometer interrupt
 // REQ[30]
