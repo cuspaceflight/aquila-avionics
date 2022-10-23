@@ -282,44 +282,71 @@ void print_serial_state(){
 
 // prints all data to a line in the SD file
 void log_sd_state(){
+
   // time
-  uint32_t time = aquila.rtc_unix();
-  datafile.print(time); sep();
-  datafile.print(micros()); sep();
-  // flight state
-  datafile.print(StateNames[state]); sep();
+  char time[21];
+  snprintf_P(time, sizeof(time), PSTR("%i,%i"), aquila.rtc_unix(), micros());
   // velocity/altitude estimates
-  datafile.print(velocity); sep();
-  datafile.print(altitude); sep();
+  char alt[12]; // 4 dp + point + 6 digits + minus sign = 12
+  char vel[12];
+  dtostrf(altitude, 1, 4, alt);
+  dtostrf(velocity, 1, 4, vel);
   // ADXL357
-  datafile.print(aquila.get_accel_x()); sep();
-  datafile.print(aquila.get_accel_y()); sep();
-  datafile.print(aquila.get_accel_z()); sep();
+  char ax[9]; // 5 dp + p + 2 digits + minus sign = 9
+  char ay[9];
+  char az[9];
+  dtostrf(aquila.get_accel_x(), 1, 5, ax);
+  dtostrf(aquila.get_accel_y(), 1, 5, ay);
+  dtostrf(aquila.get_accel_z(), 1, 5, az);
   // MPU6050
-  datafile.print(aquila.get_imu_accel_x()); sep();
-  datafile.print(aquila.get_imu_accel_y()); sep();
-  datafile.print(aquila.get_imu_accel_z()); sep();
-  datafile.print(aquila.get_imu_gyro_x()); sep();
-  datafile.print(aquila.get_imu_gyro_y()); sep();
-  datafile.print(aquila.get_imu_gyro_z()); sep();
+  char mp_ax[8]; // 4 dp + p + 2 digits + minus sign = 8
+  char mp_ay[8];
+  char mp_az[8];
+  dtostrf(aquila.get_imu_accel_x(), 1, 4, mp_ax);
+  dtostrf(aquila.get_imu_accel_y(), 1, 4, mp_ay);
+  dtostrf(aquila.get_imu_accel_z(), 1, 4, mp_az);
+  char mp_gx[8]; // 2 dp + p + 4 digits + minus sign = 8
+  char mp_gy[8];
+  char mp_gz[8];
+  dtostrf(aquila.get_imu_gyro_x(), 1, 2, mp_gx);
+  dtostrf(aquila.get_imu_gyro_y(), 1, 2, mp_gy);
+  dtostrf(aquila.get_imu_gyro_z(), 1, 2, mp_gz);
   // External barometer
-  datafile.print(aquila.get_ext_temperature()); sep();
-  datafile.print(aquila.get_ext_pressure()); sep();
+  char ext_t[6]; // 2 dp + p + 2 digits + minus sign = 6
+  char ext_p[7]; // 2 dp + p + 4 digits = 7
+  dtostrf(aquila.get_ext_temperature(), 1, 2, ext_t);
+  dtostrf(aquila.get_ext_pressure(), 1, 2, ext_p);
   // Internal barometer
-  datafile.print(aquila.get_int_temperature()); sep();
-  datafile.print(aquila.get_int_pressure()); sep();
+  char int_t[6]; // 2 dp + p + 2 digits + minus sign = 6
+  char int_p[7]; // 2 dp + p + 4 digits = 7
+  dtostrf(aquila.get_int_temperature(), 1, 2, int_t);
+  dtostrf(aquila.get_int_pressure(), 1, 2, int_p);
   // Battery voltage
-  datafile.print(aquila.get_batt_voltage()); sep();
+  char b_v[5]; // 2 dp + p + 1 digit + minus sign = 5
+  dtostrf(aquila.get_batt_voltage(), 1, 2, b_v);
   // Pyros
-  datafile.print(aquila.pyro_is_armed()); sep();
-  datafile.print(aquila.pyro_continuity(1)); sep();
-  datafile.print(aquila.pyro_continuity(2)); sep();
-  datafile.print(aquila.pyro_continuity(3)); sep();
-  datafile.print(aquila.pyro_continuity(4)); sep();
-  // Servos
-  datafile.println(servo_pos);
+  char rec[14]; // 5 bools + 3 digits + 6 commas = 14
+  snprintf_P(rec, sizeof(rec), PSTR("%d,%d,%d,%d,%d,%i"),
+    aquila.pyro_is_armed(),
+    aquila.pyro_continuity(1),
+    aquila.pyro_continuity(1),
+    aquila.pyro_continuity(1),
+    aquila.pyro_continuity(1),
+    servo_pos
+  );
   
 
+  
+  char line[185];
+  snprintf_P(line, sizeof(line), PSTR("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s"), 
+            time, StateNames[state], 
+            vel, alt, ax, ay, az, 
+            mp_ax, mp_ay, mp_az, mp_gx, mp_gy, mp_gz,
+            ext_t, ext_p, int_t, int_p,
+            b_v, rec
+  );
+
+  datafile.println(line);
   datafile.flush();
 }
 void sep(){
@@ -360,5 +387,3 @@ void accel_integration() {
 float abs_altitude(float pressure, float sea_level) {
   return 44330*(1-pow((pressure/sea_level), (1/5.255)));
 }
-
-void 
