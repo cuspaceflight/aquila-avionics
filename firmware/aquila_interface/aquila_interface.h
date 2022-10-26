@@ -14,7 +14,7 @@
 #define accel_y_sens 12625
 #define accel_y_offset 164
 #define accel_z_sens 12154
-#define accel_z_offset 1261
+#define accel_z_offset 1259
 
 #define pin_accel_cs 2
 #define pin_accel_drdy 30

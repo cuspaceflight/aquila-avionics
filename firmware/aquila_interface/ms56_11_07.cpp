@@ -25,7 +25,7 @@
 
 uint32_t MS56_11_07::begin(byte pin_cs, MS56_type sensor_type) {
   cs = pin_cs;
-  spi_speed = 4000000;
+  spi_speed = 20000000;
   type = sensor_type;
 
   // reset
@@ -54,22 +54,17 @@ bool MS56_11_07::poll_measurement() {
     wait_time = millis() + 9;
     measurement_stage = 1;
     
-  } else if (measurement_stage == 1) { // wait for temp reading
-    
-    if (millis() > wait_time) {measurement_stage = 2;}
-    
-  } else if (measurement_stage == 2) { // read temp and request pressure
+  } else if (measurement_stage == 1 && millis() > wait_time) { // wait for temp reading
+    // read temp and request pressure
     
     D1 = read_reg(0x00, 3);
     send_command(0x58);
     wait_time = millis() + 9;
-    measurement_stage = 3;
+    measurement_stage = 2;
     
-  } else if (measurement_stage == 3) { // wait for pressure
-    
-    if (millis() > wait_time) {measurement_stage = 4;}
-    
-  } else if (measurement_stage == 4) { // read pressure, calculate result
+  } else if (measurement_stage == 2 && millis() > wait_time) { // wait for pressure
+    // read pressure, calculate result
+
     D2 = read_reg(0x00, 3);
     measurement_stage = 0;
 
@@ -113,7 +108,6 @@ uint32_t MS56_11_07::send_command(byte command) {
   SPI1.beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE0));
   digitalWrite(cs, LOW);
   unsigned int result = SPI1.transfer(command);
-  delay(10);
   digitalWrite(cs, HIGH);
   SPI1.endTransaction();
   return result;
