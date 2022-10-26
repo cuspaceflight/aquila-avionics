@@ -95,13 +95,14 @@ void hz10(){
 // things to do at 100Hz
 // REQ[25][26][29]
 void hz100(){
+  uint32_t loop_time = micros();
   // REQ[31]
   aquila.update_imu();
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
 
   // REQ[32]
-  log_sd_state();
+  log_sd_state(loop_time);
 
   // state switching
   switch(state) {
@@ -281,11 +282,11 @@ void print_serial_state(){
 }
 
 // prints all data to a line in the SD file
-void log_sd_state(){
+void log_sd_state(uint32_t loop_time){
 
   // time
   char time[21];
-  snprintf_P(time, sizeof(time), PSTR("%i,%i"), aquila.rtc_unix(), micros());
+  snprintf_P(time, sizeof(time), PSTR("%i,%i"), aquila.rtc_unix(), loop_time);
   // velocity/altitude estimates
   char alt[12]; // 4 dp + point + 6 digits + minus sign = 12
   char vel[12];
