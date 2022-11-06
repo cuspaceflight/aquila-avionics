@@ -8,7 +8,7 @@
 
 class MPU6050 {
     public:
-        byte begin();
+        byte begin(int32_t cals[9]);
         void read();
         void read_gyro();
         float accel_x;
@@ -19,5 +19,6 @@ class MPU6050 {
         float gyro_z;
     private:
         uint32_t read_reg(byte address, uint8_t num_bytes);
-        uint32_t write_reg(byte address, byte data);
+        void write_reg(byte address, byte data);
+        int32_t calibrations[9];
 };

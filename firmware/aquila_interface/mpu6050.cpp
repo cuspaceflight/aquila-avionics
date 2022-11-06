@@ -10,7 +10,10 @@
 
 #include "mpu6050.h"
 
-byte MPU6050::begin() {
+byte MPU6050::begin(int32_t cals[9]) {
+    for(uint8_t i = 0; i < 9; i++) {
+        calibrations[i] = cals[i];
+        }
     // reset / wakeup
     write_reg(0x6B, 0);
     delay(100);
@@ -34,9 +37,9 @@ void MPU6050::read() {
     int16_t accel_z_reading = (Wire.read() << 8) | Wire.read();
 
     // scale for +/- 16g
-    accel_x = accel_x_reading / 2048.0;
-    accel_y = accel_y_reading / 2048.0;
-    accel_z = accel_z_reading / 2048.0;
+    accel_x = (accel_x_reading-calibrations[1]) / (float)calibrations[0];
+    accel_y = (accel_y_reading-calibrations[3]) / (float)calibrations[2];
+    accel_z = (accel_z_reading-calibrations[5]) / (float)calibrations[4];
 
     Wire.beginTransmission(MPU6050_ADDR);
     Wire.write(0x43);
@@ -48,9 +51,9 @@ void MPU6050::read() {
     int16_t gyro_z_reading = (Wire.read() << 8) | Wire.read();
 
     // scale for +/- 2000deg/s
-    gyro_x = gyro_x_reading / 16.4;
-    gyro_y = gyro_y_reading / 16.4;
-    gyro_z = gyro_z_reading / 16.4;
+    gyro_x = (gyro_x_reading - calibrations[6]) / 16.4;
+    gyro_y = (gyro_y_reading - calibrations[7]) / 16.4;
+    gyro_z = (gyro_z_reading - calibrations[8]) / 16.4;
 }
 
 uint32_t MPU6050::read_reg(byte address, uint8_t num_bytes) {
@@ -68,7 +71,7 @@ uint32_t MPU6050::read_reg(byte address, uint8_t num_bytes) {
     return reading;
 }
 
-uint32_t MPU6050::write_reg(byte address, byte data) {
+void MPU6050::write_reg(byte address, byte data) {
     Wire.beginTransmission(MPU6050_ADDR);
     Wire.write(address);
     Wire.write(data);

@@ -16,6 +16,17 @@
 #define accel_z_sens 12154
 #define accel_z_offset 1259
 
+#define imu_ax_sens 2046
+#define imu_ax_offset 148
+#define imu_ay_sens 2048
+#define imu_ay_offset -32
+#define imu_az_sens 2100
+#define imu_az_offset -52
+
+#define imu_gx_offset -51
+#define imu_gy_offset -22
+#define imu_gz_offset 2
+
 #define pin_accel_cs 2
 #define pin_accel_drdy 30
 

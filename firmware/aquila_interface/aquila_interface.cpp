@@ -45,6 +45,7 @@ void AQUILA::begin(){
   sv4.attach(pin_servo4);
 
   int32_t adxl357_calibration[] = {accel_x_sens, accel_x_offset, accel_y_sens, accel_y_offset, accel_z_sens, accel_z_offset};
+  int32_t mpu6050_calibration[] = {imu_ax_sens, imu_ax_offset, imu_ay_sens, imu_ay_offset, imu_az_sens, imu_az_offset, imu_gx_offset, imu_gy_offset, imu_gz_offset};
 
   // initialise Teensy 4.1 Real-Time Clock
   if(!rtc.begin()) {
@@ -68,7 +69,7 @@ void AQUILA::begin(){
     //while(1){}
   }
 
-  if(imu.begin() != 104) {
+  if(imu.begin(mpu6050_calibration) != 104) {
     Serial.println("MPU6050 error");
     // while(1){}
   }
