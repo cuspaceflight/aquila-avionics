@@ -33,8 +33,8 @@ uint32_t curr_time;
 
 // system parameters
 // REQ[41]
-uint8_t servo_open = 0; 
-uint8_t servo_closed = 70;
+uint8_t servo_unlocked = 0; 
+uint8_t servo_locked = 70;
 uint8_t servo_pos = 0;
 // REQ[7]
 uint32_t descent_delay_millis = 2000;
@@ -56,7 +56,7 @@ float g_local = 9.81; // constant for low altitude, must computed at high altitu
 void setup() {
   Serial.begin(19200);
   aquila.begin();
-  aquila.move_all_servos(servo_closed);
+  aquila.move_all_servos(servo_locked);
 
   // REQ[30]
   pinMode(pin_accel_int, INPUT);
@@ -141,9 +141,14 @@ void hz100(){
       case APOGEE: // REQ[9]
         time_to_descent = millis() + descent_delay_millis; // REQ[7]
         // deploy nosecone
+        aquila.arm_pyro();
+        aquila.fire_pyro(1);
+        aquila.fire_pyro(2);
         break;
       case DESCENT: // REQ[10]
         // deploy parachutes
+        servo_pos = servo_unlocked;
+        aquila.move_all_servos(servo_pos);
         break;
 
       default:
@@ -191,8 +196,8 @@ void handle_serial_command(){
       Serial.println(">> pyro must be armed to move servos");
     } else {
       Serial.print(">> toggle servo position to ");
-      Serial.println(servo_pos == servo_open ? "closed" : "open");
-      servo_pos = (servo_pos == servo_open) ? servo_closed : servo_open;
+      Serial.println(servo_pos == servo_unlocked ? "closed" : "open");
+      servo_pos = (servo_pos == servo_unlocked) ? servo_locked : servo_unlocked;
       aquila.move_all_servos(servo_pos);
     }
 
