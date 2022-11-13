@@ -33,8 +33,8 @@ uint32_t curr_time;
 
 // system parameters
 // REQ[41]
-uint8_t servo_unlocked = 0; 
-uint8_t servo_locked = 70;
+constexpr uint8_t servo_unlocked = 0; 
+constexpr uint8_t servo_locked = 70;
 uint8_t servo_pos = 0;
 // REQ[7]
 uint32_t descent_delay_millis = 2000;
@@ -141,7 +141,7 @@ void hz100(){
       case APOGEE: // REQ[9]
         time_to_descent = millis() + descent_delay_millis; // REQ[7]
         // deploy nosecone
-        aquila.arm_pyro();
+        safely_arm_pyro();
         aquila.fire_pyro(1);
         aquila.fire_pyro(2);
         break;
@@ -203,7 +203,7 @@ void handle_serial_command(){
 
   } else if (cmd == 'A') { // REQ[42]
     Serial.println(">> arm pyro");
-    aquila.arm_pyro();
+    safely_arm_pyro();
 
   } else if (cmd == 'D') { // REQ[43]
     Serial.println(">> disarm pyro");
@@ -389,4 +389,12 @@ void accel_integration() {
 // REQ[32][34]
 float abs_altitude(float pressure, float sea_level) {
   return 44330*(1-pow((pressure/sea_level), (1/5.255)));
+}
+
+// arms pyro channels with safeguards
+// REQ[48]
+void safely_arm_pyro() {
+  servo_pos = servo_locked;
+  aquila.move_all_servos(servo_pos);
+  aquila.arm_pyro();
 }
