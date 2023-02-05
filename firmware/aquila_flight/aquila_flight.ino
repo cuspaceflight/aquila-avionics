@@ -40,6 +40,13 @@ uint8_t servo_pos = 0;
 uint32_t descent_delay_millis = 2000;
 uint32_t time_to_descent = 0;
 
+// REQ[8]
+constexpr uint8_t baro_num_samples = 10; // number of samples to store
+constexpr uint16_t baro_sample_period = 100; // number of 100hz loops between samples
+uint16_t baro_sample_count = 0; // counts 100hz loops to know when to take samples
+uint16_t baro_sample_index = 0; // the index in which to store the next sample
+float baro_samples[baro_num_samples]; // array to store the samples
+
 // data logging
 // REQ[32]
 File datafile;
@@ -89,7 +96,14 @@ void loop() {
 // things to do at 10Hz
 // REQ[27][28]
 void hz10(){
+  uint32_t loop_time = micros();
   if (printing_params && (state == LOCKED || state == PAD)){print_serial_state();}
+
+  // REQ[11]
+  if (state == LAND) {
+    // REQ[32]
+    log_sd_state(loop_time);
+  }
 }
 
 // things to do at 100Hz
@@ -101,8 +115,11 @@ void hz100(){
   aquila.poll_baro_ext();
   aquila.poll_baro_int();
 
-  // REQ[32]
-  log_sd_state(loop_time);
+  // REQ[11]
+  if (state != LAND) {
+    // REQ[32]
+    log_sd_state(loop_time);
+  }
 
   // state switching
   switch(state) {
@@ -123,6 +140,18 @@ void hz100(){
       if (time_to_descent != 0 && millis() > time_to_descent) {state = DESCENT;} // REQ[7]
       break;
     case DESCENT:
+      // REQ[8]
+      if (++baro_sample_count > baro_sample_period) {
+        baro_sample_count = 0;
+        if (++baro_sample_index > baro_num_samples) {baro_sample_index = 0;}
+        baro_samples[baro_sample_index] = aquila.get_int_pressure();
+
+        if (abs(baro_samples[baro_sample_index]-baro_samples[ (baro_sample_index+1)%baro_num_samples ]) < 1 ) {
+          state = LAND;
+        }
+      }
+
+      
 
       break;
     case LAND:
@@ -282,6 +311,12 @@ void print_serial_state(){
   Serial.println(velocity, 4);
   Serial.print("Altitude estimate: ");
   Serial.println(altitude, 4);
+
+  for (uint8_t i = 0; i < baro_num_samples; i++) {
+    Serial.print(baro_samples[i]);
+    Serial.print(",");
+  }
+  Serial.println();
 
   Serial.println();
 }

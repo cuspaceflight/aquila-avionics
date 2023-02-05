@@ -9,6 +9,8 @@
 #include "ms56_11_07.h"
 #include "mpu6050.h"
 
+//#define abs(a) ((a < 0) ? -a : a)
+
 #define accel_x_sens 12541
 #define accel_x_offset 71
 #define accel_y_sens 12625
