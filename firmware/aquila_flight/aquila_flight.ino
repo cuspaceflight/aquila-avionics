@@ -6,7 +6,6 @@
  * 
  */
 
-//Daniel Ciesla Test
 // REQ[32][34]
 #define SEA_LEVEL 1020
 
