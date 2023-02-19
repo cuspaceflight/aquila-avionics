@@ -11,7 +11,7 @@
 
 #define pin_accel_int 30
 
-#include <aquila_interface.h>
+#include <aquila_hil_interface.h>
 #include <SD.h>
 
 AQUILA aquila;
@@ -35,7 +35,7 @@ uint32_t curr_time;
 // REQ[41]
 constexpr uint8_t servo_unlocked = 0; 
 constexpr uint8_t servo_locked = 70;
-uint8_t servo_pos = 0;
+uint8_t servo_pos = servo_locked;
 // REQ[7]
 uint32_t descent_delay_millis = 2000;
 uint32_t time_to_descent = 0;
@@ -97,7 +97,7 @@ void loop() {
 // REQ[27][28]
 void hz10(){
   uint32_t loop_time = micros();
-  if (printing_params && (state == LOCKED || state == PAD)){print_serial_state();}
+  if (printing_params /*& (state == LOCKED || state == PAD)*/){print_serial_state();}
 
   // REQ[11]
   if (state == LAND) {
@@ -306,6 +306,9 @@ void print_serial_state(){
   } else {
     Serial.println("pyrotechnics must be armed to test continuity");
   }
+
+  Serial.print("Servo position: ");
+  Serial.println((servo_pos == servo_locked) ? "LOCKED" : "RELEASE");
 
   Serial.print("Velocity estimate: ");
   Serial.println(velocity, 4);
