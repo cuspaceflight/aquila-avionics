@@ -1,0 +1,2 @@
+#### HIL Testing
+These files are used to generate code for HIL testing. The CSV file contains data from a flight simulation by B. Wardell: https://github.com/Barty129/Uncarved-Block/. The Python program converts this data to an interpolating function in C++ code, so that it can be directly pasted into aquila_hil_interface.cpp.
