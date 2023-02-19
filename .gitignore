@@ -57,3 +57,6 @@ fp-info-cache
 
 # Exported plot files
 schematics/*/plot/
+
+# VSCode config
+.vscode/
