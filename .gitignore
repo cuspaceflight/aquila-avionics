@@ -60,3 +60,6 @@ schematics/*/plot/
 
 # VSCode config
 .vscode/
+
+# Reinclude CSV flight data for HIL
+!hil_testing/*.csv
