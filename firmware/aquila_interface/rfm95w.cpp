@@ -21,35 +21,38 @@ bool lora_setup(){
 
 int* RFM95W::lora_receive(){
     int current_packet_size = LoRa.parsePacket();
-    Serial.println(current_packet_size)
+    Serial.println(current_packet_size);
     if (current_packet_size > 0) { 
         if (current_packet_size != lora_packet_size){
-            Serial.print(" Packet Wrong Size ")
+            Serial.print(" Packet Wrong Size ");
         }
         static uint8_t lora_array[lora_packet_size];
         uint8_t current_byte;
         for (i=0, i<lora_packet_size, i++){
             if (LoRa.available()) {
                 current_byte = LoRa.read();
-                lora_array[i] = current_byte
-                Serial.print(current_byte)
+                lora_array[i] = current_byte;
+                Serial.print(current_byte);
             }
             else {
-                lora_array[i]=0
+                lora_array[i]=0;
             }
         }
-        return lora_array
+        return lora_array;
     }
 }
 
-void RFM95W::lora_transmit(){
-
+void RFM95W::lora_transmit(int* lora_array){
+    LoRa.beginPacket();
+    LoRa.write();
+    LoRa.endPacket();
+    Lora.receive();
 }
 
-int* RFM95W::lora_update(transmit){
-    int* lora_pointer = lora_receive();
-    lora_transmit(transmit)
-    return lora_pointer;
+int* RFM95W::lora_update(int* lora_transmit_pointer){
+    int* lora_receive_pointer = lora_receive();
+    lora_transmit(lora_transmit_pointer);
+    return lora_receive_pointer;
 }
 
 void lora_quality(){
@@ -57,6 +60,6 @@ void lora_quality(){
     Serial.print(LoRa.packetRssi());     
     Serial.print("   SNR: ");
     Serial.print(LoRa.packetSnr());
-    Serial.print("   Freq Error:")
-    Serial.print(LoRa.packetFrequencyError())
+    Serial.print("   Freq Error:");
+    Serial.print(LoRa.packetFrequencyError());
 }
