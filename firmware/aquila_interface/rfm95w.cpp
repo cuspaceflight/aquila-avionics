@@ -1,5 +1,5 @@
 /* Daniel Ciesla
-LoRa rfm95w  chip
+LoRa rfm95w chip
 */
 
 #include <rfm95w.h>
@@ -42,15 +42,18 @@ int* RFM95W::lora_receive(){
     }
 }
 
-void RFM95W::lora_transmit(int* lora_array){
+void RFM95W::lora_transmit(uint8_t* lora_array){
     LoRa.beginPacket();
-    LoRa.write();
+    for (i=0, i<lora_packet_size, i++){
+        LoRa.write(lora_array[i]);
+    }
     LoRa.endPacket();
     Lora.receive();
 }
 
-int* RFM95W::lora_update(int* lora_transmit_pointer){
-    int* lora_receive_pointer = lora_receive();
+int* RFM95W::lora_update(uint8_t* lora_transmit_pointer){
+    uint8_t* lora_receive_pointer;
+    lora_receive_pointer = lora_receive();
     lora_transmit(lora_transmit_pointer);
     return lora_receive_pointer;
 }

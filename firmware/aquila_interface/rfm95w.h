@@ -16,5 +16,4 @@ class RFM95W{
     void lora_transmit();
     int* lora_update();
     void lora_quality();
-    private:
 }
