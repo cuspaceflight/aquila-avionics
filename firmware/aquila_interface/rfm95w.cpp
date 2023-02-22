@@ -48,7 +48,7 @@ int* RFM95W::lora_receive(){
     }
     else{
         uint8_t * lora_array = NULL;
-        return lora_array 
+        return lora_array;
     }
 }
 
