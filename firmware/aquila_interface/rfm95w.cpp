@@ -46,20 +46,26 @@ int* RFM95W::lora_receive(){
         }
         return lora_array;
     }
+    else{
+        uint8_t * lora_array = NULL;
+        return lora_array 
+    }
 }
 
 //Transmit data in array pointed to by input
 void RFM95W::lora_transmit(uint8_t* lora_array){
-    LoRa.beginPacket();
-    for (i=0, i<packet_size, i++){
-        LoRa.write(lora_array[i]);
+    if (lora_array){
+        LoRa.beginPacket();
+        for (i=0, i<packet_size, i++){
+            LoRa.write(lora_array[i]);
+        }
+        LoRa.endPacket();
+        Lora.receive();
     }
-    LoRa.endPacket();
-    Lora.receive();
 }
 
 //Receive and Transmit
-int* RFM95W::lora_update(uint8_t* data_out){
+int* RFM95W::lora_update(uint8_t* data_out = NULL){
     uint8_t* data_in;
     data_in = lora_receive();
     lora_transmit(data_out);
