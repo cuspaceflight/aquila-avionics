@@ -73,11 +73,34 @@ int* RFM95W::lora_update(uint8_t* data_out = NULL){
 }
 
 //Print various radio signal quality indicators (might convert to output later)
-void lora_quality(){
+void RFM95W::lora_quality(){
     Serial.println("RSSI: ");
     Serial.print(LoRa.packetRssi());     
     Serial.print("   SNR: ");
     Serial.print(LoRa.packetSnr());
     Serial.print("   Freq Error:");
     Serial.print(LoRa.packetFrequencyError());
+}
+
+uint8_t RFM95W::register_read(uint8_t address){
+    return singleTransfer(address & 0x7f, 0x00);
+}
+
+void RFM95W::register_write(uint8_t address, uint8_t value){
+    singleTransfer(address | 0x80, value);
+}
+
+uint8_t RFM95W::singleTransfer(uint8_t address, uint8_t value){
+    uint8_t result;
+    SPI1.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+
+    digitalWrite(lora_cs, LOW);
+    SPI1.beginTransaction(_spiSettings);
+    SPI1.transfer(address);
+    result = SPI1.transfer(value);
+    
+    SPI1.endTransaction();
+    digitalWrite(lora_cs, HIGH);
+
+    return result;
 }
