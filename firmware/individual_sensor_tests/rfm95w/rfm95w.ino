@@ -18,13 +18,27 @@
  * automatic mode change standby      |
  * new tx? --- yes -------------------+
  * 
- * rx:
+ * rx single:
  * mode request standby
  * rx init
  * mode request rx single <--+
  * wait for IRQ              |
  *     /      \              |
  * rx done    rx timeout ----+
+ *    |                      |
+ * IRQ crc error? --- yes ---+
+ *    |                      |
+ *   no                      |
+ *    |                      |
+ * read rx data -------------+
+ * 
+ * rx continuous:
+ * mode request standby
+ * rx init
+ * mode request rx cont   
+ * check IRQ  <--------------+
+ *     /     \               |
+ * rx done    empty ---- ----+
  *    |                      |
  * IRQ crc error? --- yes ---+
  *    |                      |
