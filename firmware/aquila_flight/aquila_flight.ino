@@ -11,11 +11,11 @@
 
 #define pin_accel_int 30
 
-#ifdef HIL
-#include <aquila_hil_interface.h>
-#else
+//#ifdef HIL
+//#include <aquila_hil_interface.h>
+//#else
 #include <aquila_interface.h>
-#endif
+//#endif
 #include <SD.h>
 
 AQUILA aquila;
