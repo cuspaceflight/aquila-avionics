@@ -59,10 +59,11 @@ void AQUILA::begin(){
     //while(1){}
   }
 
-  if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
+  // not in use if using radio
+  /*if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
     Serial.println("External barometer error");
     //while(1){}
-  }
+  }*/
 
   if(baro.begin(pin_baro_cs, MS5611) == 65535){
     Serial.println("Onboard barometer error");
@@ -73,6 +74,11 @@ void AQUILA::begin(){
     Serial.println("MPU6050 error");
     // while(1){}
   }
+
+  if(radio.begin(pin_baro_ext_cs) == 0) {
+    Serial.println("RFM95W error");
+    // while(1){}
+  } else {Serial.println("radio ok");}
   
 }
 
@@ -170,4 +176,8 @@ void AQUILA::move_all_servos(uint8_t angle) {
   sv2.write(angle);
   sv3.write(angle);
   sv4.write(angle);
+}
+
+void AQUILA::transmit_telem(uint8_t size, char* data) {
+  radio.transmit(size, data);
 }

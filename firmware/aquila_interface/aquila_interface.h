@@ -8,6 +8,7 @@
 #include "adxl357.h"
 #include "ms56_11_07.h"
 #include "mpu6050.h"
+#include "rfm95w.h"
 
 //#define abs(a) ((a < 0) ? -a : a)
 
@@ -90,12 +91,15 @@ class AQUILA {
 
     void move_all_servos(uint8_t angle);
 
+    void transmit_telem(uint8_t size, char* data);
+
   private:
     TEENSY_RTC rtc;
     ADXL357 accel;
     MS56_11_07 baro_ext;
     MS56_11_07 baro;
     MPU6050 imu;
+    RFM95W radio;
     Servo sv1;
     Servo sv2;
     Servo sv3;

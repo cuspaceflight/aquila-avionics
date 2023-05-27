@@ -30,6 +30,31 @@ FlightState prevState = state;
 // whether system parameters are being printed to serial when on the pad 
 bool printing_params = false; // REQ[37][38]
 
+// structure for encoding flight parameters for telemetry
+struct FlightParams {
+  uint32_t unix_time;
+  FlightState state;
+  float accel_x;
+  float accel_y;
+  float accel_z;
+
+  float int_pressure;
+  float int_temperature;
+
+  float imu_accel_x;
+  float imu_accel_y;
+  float imu_accel_z;
+  float imu_gyro_x;
+  float imu_gyro_y;
+  float imu_gyro_z;
+
+  bool pyro_is_armed;
+
+  float est_altitude;
+  float est_velocity;
+
+};
+
 // timers for 10Hz and 100Hz loops
 uint32_t hz10_time; // REQ[27][28]
 uint32_t hz100_time; // REQ[25][26][29]
@@ -103,6 +128,8 @@ void hz10(){
   uint32_t loop_time = micros();
   if (printing_params /*& (state == LOCKED || state == PAD)*/){print_serial_state();}
 
+  send_telemetry();
+
   // REQ[11]
   if (state == LAND) {
     // REQ[32]
@@ -116,7 +143,6 @@ void hz100(){
   uint32_t loop_time = micros();
   // REQ[31]
   aquila.update_imu();
-  aquila.poll_baro_ext();
   aquila.poll_baro_int();
 
   // REQ[11]
@@ -277,13 +303,6 @@ void print_serial_state(){
   Serial.print(aquila.get_imu_gyro_y(), 4);
   Serial.print(", ");
   Serial.println(aquila.get_imu_gyro_z(), 4);
-
-  Serial.print("External barometer: ");
-  Serial.print(aquila.get_ext_temperature());
-  Serial.print(", ");
-  Serial.print(aquila.get_ext_pressure());
-  Serial.print(", ");
-  Serial.println(abs_altitude(aquila.get_ext_pressure(), SEA_LEVEL));
   
   Serial.print("Internal barometer: ");
   Serial.print(aquila.get_int_temperature());
@@ -359,11 +378,6 @@ void log_sd_state(uint32_t loop_time){
   dtostrf(aquila.get_imu_gyro_x(), 1, 2, mp_gx);
   dtostrf(aquila.get_imu_gyro_y(), 1, 2, mp_gy);
   dtostrf(aquila.get_imu_gyro_z(), 1, 2, mp_gz);
-  // External barometer
-  char ext_t[6]; // 2 dp + p + 2 digits + minus sign = 6
-  char ext_p[7]; // 2 dp + p + 4 digits = 7
-  dtostrf(aquila.get_ext_temperature(), 1, 2, ext_t);
-  dtostrf(aquila.get_ext_pressure(), 1, 2, ext_p);
   // Internal barometer
   char int_t[6]; // 2 dp + p + 2 digits + minus sign = 6
   char int_p[7]; // 2 dp + p + 4 digits = 7
@@ -386,11 +400,11 @@ void log_sd_state(uint32_t loop_time){
 
   
   char line[185];
-  snprintf_P(line, sizeof(line), PSTR("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s"), 
+  snprintf_P(line, sizeof(line), PSTR("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s/*,%s,%s*/"), 
             time, StateNames[state], 
             vel, alt, ax, ay, az, 
             mp_ax, mp_ay, mp_az, mp_gx, mp_gy, mp_gz,
-            ext_t, ext_p, int_t, int_p,
+            /*ext_t, ext_p,*/ int_t, int_p,
             b_v, rec
   );
 
@@ -439,4 +453,31 @@ void safely_arm_pyro() {
   servo_pos = servo_locked;
   aquila.move_all_servos(servo_pos);
   aquila.arm_pyro();
+}
+
+void send_telemetry() {
+  FlightParams data;
+  
+  data.unix_time = aquila.rtc_unix();
+  data.state = state;
+  data.accel_x = aquila.get_accel_x();
+  data.accel_y = aquila.get_accel_y();
+  data.accel_z = aquila.get_accel_z();
+  data.int_pressure = aquila.get_int_pressure();
+  data.int_temperature = aquila.get_int_temperature();
+
+  data.imu_accel_x = aquila.get_imu_accel_x();
+  data.imu_accel_y = aquila.get_imu_accel_y();
+  data.imu_accel_z = aquila.get_imu_accel_z();
+  data.imu_gyro_x = aquila.get_imu_gyro_x();
+  data.imu_gyro_y = aquila.get_imu_gyro_y();
+  data.imu_gyro_z = aquila.get_imu_gyro_z();
+
+  data.pyro_is_armed = aquila.pyro_is_armed();
+
+  data.est_altitude = altitude;
+  data.est_velocity = velocity;
+
+  aquila.transmit_telem((uint8_t)(sizeof data), (char*)&data);
+  
 }
