@@ -33,7 +33,7 @@ bool printing_params = false; // REQ[37][38]
 // structure for encoding flight parameters for telemetry
 struct FlightParams {
   uint32_t unix_time;
-  FlightState state;
+  byte flight_state;
   float accel_x;
   float accel_y;
   float accel_z;
@@ -47,8 +47,6 @@ struct FlightParams {
   float imu_gyro_x;
   float imu_gyro_y;
   float imu_gyro_z;
-
-  bool pyro_is_armed;
 
   float est_altitude;
   float est_velocity;
@@ -457,9 +455,16 @@ void safely_arm_pyro() {
 
 void send_telemetry() {
   FlightParams data;
-  
+
+  byte flight_state = (state & 0b00000111)
+   + (aquila.pyro_continuity(1) << 6)
+   + (aquila.pyro_continuity(2) << 5)
+   + (aquila.pyro_continuity(3) << 4)
+   + (aquila.pyro_continuity(4) << 3)
+   + (aquila.pyro_is_armed() << 7);
+
   data.unix_time = aquila.rtc_unix();
-  data.state = state;
+  data.flight_state = flight_state;
   data.accel_x = aquila.get_accel_x();
   data.accel_y = aquila.get_accel_y();
   data.accel_z = aquila.get_accel_z();
@@ -472,8 +477,6 @@ void send_telemetry() {
   data.imu_gyro_x = aquila.get_imu_gyro_x();
   data.imu_gyro_y = aquila.get_imu_gyro_y();
   data.imu_gyro_z = aquila.get_imu_gyro_z();
-
-  data.pyro_is_armed = aquila.pyro_is_armed();
 
   data.est_altitude = altitude;
   data.est_velocity = velocity;

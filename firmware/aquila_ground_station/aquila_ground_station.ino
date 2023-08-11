@@ -10,7 +10,7 @@ const char *StateNames[] = {"LOCKED", "PAD", "BURN", "COAST", "APOGEE", "DESCENT
 
 struct FlightParams {
   uint32_t unix_time;
-  FlightState state;
+  byte  flight_state;
   float accel_x;
   float accel_y;
   float accel_z;
@@ -24,8 +24,6 @@ struct FlightParams {
   float imu_gyro_x;
   float imu_gyro_y;
   float imu_gyro_z;
-
-  bool pyro_is_armed;
 
   float est_altitude;
   float est_velocity;
@@ -47,7 +45,7 @@ void loop(){
     Serial.println(data.unix_time);
 
     Serial.print("State: ");
-    Serial.println(StateNames[data.state]);
+    Serial.println(StateNames[(data.flight_state & 0b00000111)]);
 
     Serial.print("Accelerations (ADXL357): ");
     Serial.print(data.accel_x, 4);
@@ -63,6 +61,17 @@ void loop(){
     Serial.print(", ");
     Serial.println(data.imu_accel_z, 4);
 
+    Serial.print("Pyro armed: ");
+    Serial.println(data.flight_state >> 7);
+    Serial.print("Pyro continuities: ");
+    Serial.print((data.flight_state & 0b01000000) >> 6);
+    Serial.print(", ");
+    Serial.print((data.flight_state & 0b00100000) >> 5);
+    Serial.print(", ");
+    Serial.print((data.flight_state & 0b00010000) >> 4);
+    Serial.print(", ");
+    Serial.println((data.flight_state & 0b00001000) >> 3);
+
     Serial.print("Gyroscopes: ");
     Serial.print(data.imu_gyro_x, 4);
     Serial.print(", ");
@@ -74,9 +83,6 @@ void loop(){
     Serial.print(data.int_pressure);
     Serial.print(", ");
     Serial.println(data.int_temperature);
-
-    Serial.print("Pyro armed: ");
-    Serial.println(data.pyro_is_armed);
 
     Serial.print("Velocity estimate: ");
     Serial.println(data.est_velocity, 4);
