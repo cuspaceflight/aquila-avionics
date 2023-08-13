@@ -6,8 +6,7 @@
  * 
  */
 
-// REQ[32][34]
-#define SEA_LEVEL 1020
+
 
 #define pin_accel_int 30
 
@@ -66,6 +65,9 @@ uint8_t servo_pos = servo_locked;
 // REQ[7]
 uint32_t descent_delay_millis = 2000;
 uint32_t time_to_descent = 0;
+
+// REQ[32][34][49]
+float pad_pressure = 1020;
 
 // REQ[8]
 constexpr uint8_t baro_num_samples = 10; // number of samples to store
@@ -265,6 +267,9 @@ void handle_serial_command(){
   } else if (cmd == 'D') { // REQ[43]
     Serial.println(">> disarm pyro");
     aquila.disarm_pyro();
+  } else if (cmd == 'C') { // REQ[49]
+    Serial.println(">> calibrate altimeter");
+    pad_pressure = aquila.get_int_pressure();
   } else {
     Serial.println(">> command not recognised");
   }
@@ -307,7 +312,7 @@ void print_serial_state(){
   Serial.print(", ");
   Serial.print(aquila.get_int_pressure());
   Serial.print(", ");
-  Serial.println(abs_altitude(aquila.get_int_pressure(), SEA_LEVEL));
+  Serial.println(abs_altitude(aquila.get_int_pressure(), pad_pressure));
 
   Serial.print("Battery voltage: ");
   Serial.println(aquila.get_batt_voltage());
@@ -440,7 +445,7 @@ void accel_integration() {
 }
 
 // roughly converts pressure reading to altitude
-// REQ[32][34]
+// REQ[32][34][49]
 float abs_altitude(float pressure, float sea_level) {
   return 44330*(1-pow((pressure/sea_level), (1/5.255)));
 }
