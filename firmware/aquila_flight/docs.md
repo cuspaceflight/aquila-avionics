@@ -40,7 +40,7 @@ There are seven total flight stages, represented by a mode. \[1]
 | 3       | COAST    | acceleration < 0 \[5]                            |                                                   |
 | 4       | APOGEE   | velocity < 0 \[6]                                | Activate bottle burst pyro \[9]                   |
 | 5       | DESCENT  | barometric altitude below 500m \[7]              | Release parachute servos \[10]                    |
-| 6       | LAND     | Barometric pressure constant for 10 seconds \[8] | Reduce logging rate to 10Hz \[11]                 |
+| 6       | LAND     | Barometric pressure constant for 10 seconds \[8] | Reduce logging rate to 10Hz \[11], disarm pyros [51] |
 
 
 ### Background Operations

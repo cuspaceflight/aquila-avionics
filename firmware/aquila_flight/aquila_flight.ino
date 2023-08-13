@@ -211,6 +211,10 @@ void hz100(){
         aquila.move_all_servos(servo_pos);
         break;
 
+      case LAND: // REQ[51]
+        aquila.disarm_pyro();
+        break;
+
       default:
         break;
     }
