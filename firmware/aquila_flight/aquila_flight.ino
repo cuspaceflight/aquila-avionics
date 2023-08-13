@@ -9,15 +9,18 @@
 
 
 #define pin_accel_int 30
+//#define HIL_mode // uncomment to run HIL simulation of flight
 
-//#ifdef HIL
-//#include <aquila_hil_interface.h>
-//#else
-#include <aquila_interface.h>
-//#endif
 #include <SD.h>
 
-AQUILA aquila;
+#ifdef HIL_mode
+  #include <aquila_hil_interface.h>
+  AQUILA_HIL aquila;
+#else
+  #include <aquila_interface.h>
+  AQUILA aquila;
+#endif
+
 
 // flight state variables 
 // REQ[1]

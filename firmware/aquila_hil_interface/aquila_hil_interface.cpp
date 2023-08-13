@@ -14,10 +14,10 @@ float altitude_at_t(uint32_t ms) { // m
 
   uint32_t time = 0;
 
-  if (ms < 10000) {
+  if (ms < 30000) {
     return 0;
   } else {
-    time = ms - 10000;
+    time = ms - 30000;
   }
   
   if (time < 100.0) { return 0 + (0.25982445 - 0)*(time - 0.0)/(100.0); }
@@ -1114,10 +1114,10 @@ float accel_at_t(uint32_t ms) { // m/s/s
 
   uint32_t time = 0;
 
-  if (ms < 10000) {
+  if (ms < 30000) {
     return 0;
   } else {
-    time = ms - 10000;
+    time = ms - 30000;
   }
 
   if (time < 100.0) { return 0 + (25.98244501 - 0)*(time - 0.0)/(100.0); }
@@ -1663,7 +1663,7 @@ float pressure_at_alt(uint32_t h) { // mBar
   return pow((1- (h / 44330.0)), 5.255) * 1025;
 }
 
-void AQUILA::begin(){
+void AQUILA_HIL::begin(){
   SPI.begin();
   SPI1.begin();
   Wire.begin();
@@ -1712,10 +1712,11 @@ void AQUILA::begin(){
     //while(1){}
   }
 
-  if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
+  // not in use if using radio
+  /*if(baro_ext.begin(pin_baro_ext_cs, MS5607) == 65535){
     Serial.println("External barometer error");
     //while(1){}
-  }
+  }*/
 
   if(baro.begin(pin_baro_cs, MS5611) == 65535){
     Serial.println("Onboard barometer error");
@@ -1726,48 +1727,53 @@ void AQUILA::begin(){
     Serial.println("MPU6050 error");
     // while(1){}
   }
+
+  if(radio.begin(pin_baro_ext_cs) == 0) {
+    Serial.println("RFM95W error");
+    // while(1){}
+  } else {Serial.println("radio ok");}
   
 }
 
 // ---------- Real-Time Clock ----------
-void AQUILA::rtc_datetime(char* outstr) { rtc.get_datetime(outstr); }
-uint32_t AQUILA::rtc_unix() { return rtc.get_unix(); }
+void AQUILA_HIL::rtc_datetime(char* outstr) { rtc.get_datetime(outstr); }
+uint32_t AQUILA_HIL::rtc_unix() { return rtc.get_unix(); }
 
 // ---------- ADXL357 accelerometer ----------
-void AQUILA::update_accel() { accel.read_measurement(); }
-float AQUILA::get_accel_x() { return accel.x_g; }
-float AQUILA::get_accel_y() { return accel.y_g; }
-float AQUILA::get_accel_z() { 
+void AQUILA_HIL::update_accel() { accel.read_measurement(); }
+float AQUILA_HIL::get_accel_x() { return accel.x_g; }
+float AQUILA_HIL::get_accel_y() { return accel.y_g; }
+float AQUILA_HIL::get_accel_z() { 
   return accel_at_t(millis()) / 9.81 + 1;
 }
 
 // ---------- External and onboard barometers ----------
-bool AQUILA::poll_baro_ext() { return baro_ext.poll_measurement(); }
-float AQUILA::get_ext_temperature() { return baro_ext.temperature/100.0; }
-float AQUILA::get_ext_pressure() { return pressure_at_alt(altitude_at_t(millis())); }
+bool AQUILA_HIL::poll_baro_ext() { return baro_ext.poll_measurement(); }
+float AQUILA_HIL::get_ext_temperature() { return baro_ext.temperature/100.0; }
+float AQUILA_HIL::get_ext_pressure() { return pressure_at_alt(altitude_at_t(millis())); }
 
-bool AQUILA::poll_baro_int() { return baro.poll_measurement(); }
-float AQUILA::get_int_temperature() { return baro.temperature/100.0; }
-float AQUILA::get_int_pressure() { return pressure_at_alt(altitude_at_t(millis())); }
+bool AQUILA_HIL::poll_baro_int() { return baro.poll_measurement(); }
+float AQUILA_HIL::get_int_temperature() { return baro.temperature/100.0; }
+float AQUILA_HIL::get_int_pressure() { return pressure_at_alt(altitude_at_t(millis())); }
 
 // ---------- MPU6050 IMU ----------
-void AQUILA::update_imu() { imu.read(); }
-float AQUILA::get_imu_accel_x() { return imu.accel_x; }
-float AQUILA::get_imu_accel_y() { return imu.accel_y; }
-float AQUILA::get_imu_accel_z() { return min(accel_at_t(millis()) / 9.81 + 1, 8); }
-float AQUILA::get_imu_gyro_x() { return imu.gyro_x; }
-float AQUILA::get_imu_gyro_y() { return imu.gyro_y; }
-float AQUILA::get_imu_gyro_z() { return velocity_at_t(millis()) * 0.01; }
+void AQUILA_HIL::update_imu() { imu.read(); }
+float AQUILA_HIL::get_imu_accel_x() { return imu.accel_x; }
+float AQUILA_HIL::get_imu_accel_y() { return imu.accel_y; }
+float AQUILA_HIL::get_imu_accel_z() { return min(accel_at_t(millis()) / 9.81 + 1, 8); }
+float AQUILA_HIL::get_imu_gyro_x() { return imu.gyro_x; }
+float AQUILA_HIL::get_imu_gyro_y() { return imu.gyro_y; }
+float AQUILA_HIL::get_imu_gyro_z() { return velocity_at_t(millis()) * 0.01; }
 
 // ---------- Battery voltage measurement ----------
-float AQUILA::get_batt_voltage() { return analogRead(pin_batt_v)/1024.0 * 3.2 * 3; }
+float AQUILA_HIL::get_batt_voltage() { return analogRead(pin_batt_v)/1024.0 * 3.2 * 3; }
 
 // ---------- Pyrotechnics ----------
-void AQUILA::arm_pyro() { 
+void AQUILA_HIL::arm_pyro() { 
   digitalWrite(pin_pyro_arm, LOW); 
   pyro_armed = true;
 }
-void AQUILA::disarm_pyro() {
+void AQUILA_HIL::disarm_pyro() {
   digitalWrite(pin_pyro_arm, HIGH);
   digitalWrite(pin_pyro1, LOW);
   digitalWrite(pin_pyro2, LOW);
@@ -1775,22 +1781,22 @@ void AQUILA::disarm_pyro() {
   digitalWrite(pin_pyro4, LOW);
   pyro_armed = false;
 }
-bool AQUILA::pyro_is_armed() { return pyro_armed; }
+bool AQUILA_HIL::pyro_is_armed() { return pyro_armed; }
 
-bool AQUILA::pyro_continuity(uint8_t pyro_number) {
+bool AQUILA_HIL::pyro_continuity(uint8_t pyro_number) {
   if (!pyro_armed) { return false; }
   switch (pyro_number) {
   case 1:
-    return !digitalRead(pin_pyro_cont1);
+    return (digitalRead(pin_pyro_cont1) == LOW);
     break;
   case 2:
-    return !digitalRead(pin_pyro_cont2);
+    return (digitalRead(pin_pyro_cont2) == LOW);
     break;
   case 3:
-    return !digitalRead(pin_pyro_cont3);
+    return (digitalRead(pin_pyro_cont3) == LOW);
     break;
   case 4:
-    return !digitalRead(pin_pyro_cont4);
+    return (digitalRead(pin_pyro_cont4) == LOW);
     break;
   default:
     return false;
@@ -1798,7 +1804,7 @@ bool AQUILA::pyro_continuity(uint8_t pyro_number) {
   }
 }
 
-bool AQUILA::fire_pyro(uint8_t pyro_number) {
+bool AQUILA_HIL::fire_pyro(uint8_t pyro_number) {
   if (!pyro_armed) { return false; }
   switch (pyro_number) {
   case 1:
@@ -1820,9 +1826,13 @@ bool AQUILA::fire_pyro(uint8_t pyro_number) {
   return true;
 }
 
-void AQUILA::move_all_servos(uint8_t angle) {
+void AQUILA_HIL::move_all_servos(uint8_t angle) {
   sv1.write(angle);
   sv2.write(angle);
   sv3.write(angle);
   sv4.write(angle);
+}
+
+void AQUILA_HIL::transmit_telem(uint8_t size, char* data) {
+  radio.transmit(size, data);
 }

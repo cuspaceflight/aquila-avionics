@@ -1,9 +1,6 @@
 #### Important:
-Copy the "aquila_interface" folder into your Arduino/libraries directory
+Copy the `aquila_interface` folder into your `Arduino/libraries` directory before compiling. If you wish to run Hardware-In-Loop (HIL) testing, also copy `aquila_hil_interface.h` and `aquila_hil_interface.cpp` into this libraries folder.
 
-Only copy one of (aquila_interface.cpp, aquila_interface.h) OR (aquila_hil_interface.cpp, aquila_hil_interface.h) into the Arduino libriaries folder. Code will not compile if both are in the libraries folder.
-
-Make sure aquila_flight.ino is including the correct file.
 
 #### Guide to files
 * aquila_flight - actual flight program
@@ -11,3 +8,6 @@ Make sure aquila_flight.ino is including the correct file.
 * individual_sensor_tests - a small program for each sensor, used to test protocols
 * inertial_calibration - calculates two-point calibrations for accelerometers and gyroscopes by having you hold the board in different orientations
 * sensor_dump - reads all sensors using aquila_interface and prints their values to serial
+
+#### HIL Testing
+To run an HIL test on the flight computer with imitated sensor readings from a simulated flight, uncomment the indicated line at the top of `aquila_flight.ino`. The "liftoff" will occur automatically 30 seconds after startup, so make sure to issue the "unlock" command within this time.
