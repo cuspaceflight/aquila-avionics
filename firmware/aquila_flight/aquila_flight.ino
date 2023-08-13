@@ -63,8 +63,7 @@ constexpr uint8_t servo_unlocked = 0;
 constexpr uint8_t servo_locked = 70;
 uint8_t servo_pos = servo_locked;
 // REQ[7]
-uint32_t descent_delay_millis = 2000;
-uint32_t time_to_descent = 0;
+float parachute_altitude = 500; // m
 
 // REQ[32][34][49]
 float pad_pressure = 1020;
@@ -167,7 +166,7 @@ void hz100(){
       if (velocity < 0) {state = APOGEE;} // REQ[6]
       break;
     case APOGEE:
-      if (time_to_descent != 0 && millis() > time_to_descent) {state = DESCENT;} // REQ[7]
+      if (abs_altitude(aquila.get_int_pressure(), pad_pressure) < parachute_altitude) {state = DESCENT;} // REQ[7]
       break;
     case DESCENT:
       // REQ[8]
@@ -198,7 +197,6 @@ void hz100(){
         last_integ_micros = 0;
         break;
       case APOGEE: // REQ[9]
-        time_to_descent = millis() + descent_delay_millis; // REQ[7]
         // deploy nosecone
         safely_arm_pyro();
         aquila.fire_pyro(1);
