@@ -32,9 +32,8 @@ The architecture of the Aquila Flight program comprises two types of code: mode 
 
 There are seven total flight stages, represented by a mode. \[1]
 
-|         |          |                                                  |                                                   |
+| **Num** | **Name** | **Criteria to enter**                            | **Actions** |
 | ------- | -------- | ------------------------------------------------ | ------------------------------------------------- |
-| **Num** | **Name** | **Criteria to enter**                            | **Actions**                                       |
 | 0       | LOCKED   | Startup \[2], lock command received \[45]        | Set altitude and velocity estimates to zero \[46] |
 | 1       | PAD      | unlock command received \[3]                     |                                                   |
 | 2       | BURN     | velocity > 10m/s \[4]                            |                                                   |
@@ -46,9 +45,10 @@ There are seven total flight stages, represented by a mode. \[1]
 
 ### Background Operations
 
-|                          |                         |             |                                                                                                                                                                                         |
+
+
+| **Operation**            | **Modes**               | **Rate**    | **Description** |
 | ------------------------ | ----------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Operation**            | **Modes**               | **Rate**    | **Description**                                                                                                                                                                         |
 | Acceleration integration | all except LOCKED \[18] | \~1kHz\[24] | The ADXL357 raises an interrupt when it has a new reading. The handler updates the velocity and altitude estimates \[30]. When in PAD state, accelerations < 0.01g are discarded \[47]. |
 | Sensor updates           | All \[19]               | 100Hz \[25] | All sensors are read and readings stored \[31]                                                                                                                                          |
 | Data logging             | All \[20]               | 100Hz\[26]  | Write all sensor readings and system parameters to SD card \[32]                                                                                                                        |
@@ -63,9 +63,9 @@ It is desirable to have a serial interface available in flight software to monit
 
 This is a work in progress but may look something like the following.
 
-|             |                                                                    |
+
+| **Command** | **Action** |
 | ----------- | ------------------------------------------------------------------ |
-| **Command** | **Action**                                                         |
 | N           | Print system state to console \[36]                                |
 | S           | Start printing system state at a rate of 10Hz \[37]                |
 | P           | Stop printing system state \[38]                                   |
