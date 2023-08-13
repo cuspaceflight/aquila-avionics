@@ -132,16 +132,16 @@ bool AQUILA::pyro_continuity(uint8_t pyro_number) {
   if (!pyro_armed) { return false; }
   switch (pyro_number) {
   case 1:
-    return !digitalRead(pin_pyro_cont1);
+    return (digitalRead(pin_pyro_cont1) == LOW); 
     break;
   case 2:
-    return !digitalRead(pin_pyro_cont2);
+    return (digitalRead(pin_pyro_cont2) == LOW);
     break;
   case 3:
-    return !digitalRead(pin_pyro_cont3);
+    return (digitalRead(pin_pyro_cont3) == LOW);
     break;
   case 4:
-    return !digitalRead(pin_pyro_cont4);
+    return (digitalRead(pin_pyro_cont4) == LOW);
     break;
   default:
     return false;

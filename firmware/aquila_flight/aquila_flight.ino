@@ -389,20 +389,20 @@ void log_sd_state(uint32_t loop_time){
   snprintf_P(rec, sizeof(rec), PSTR("%d,%d,%d,%d,%d,%i"),
     aquila.pyro_is_armed(),
     aquila.pyro_continuity(1),
-    aquila.pyro_continuity(1),
-    aquila.pyro_continuity(1),
-    aquila.pyro_continuity(1),
+    aquila.pyro_continuity(2),
+    aquila.pyro_continuity(3),
+    aquila.pyro_continuity(4),
     servo_pos
   );
   
 
   
-  char line[185];
-  snprintf_P(line, sizeof(line), PSTR("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s/*,%s,%s*/"), 
+  char line[168];
+  snprintf_P(line, sizeof(line), PSTR("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s"), 
             time, StateNames[state], 
             vel, alt, ax, ay, az, 
             mp_ax, mp_ay, mp_az, mp_gx, mp_gy, mp_gz,
-            /*ext_t, ext_p,*/ int_t, int_p,
+            int_t, int_p,
             b_v, rec
   );
 
