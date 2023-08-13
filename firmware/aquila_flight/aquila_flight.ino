@@ -233,52 +233,34 @@ void handle_serial_command(){
   // empty buffer of any other characters
   while (Serial.available() > 0){Serial.read();}
 
+  execute_command(cmd);
+
+}
+
+void execute_command(char cmd) {
   if (cmd == 'N') { // REQ[36]
-    Serial.println(">> print system state");
     print_serial_state();
-
   } else if (cmd == 'S') { // REQ[37]
-    Serial.println(">> start printing system state");
     printing_params = true;
-
   } else if (cmd == 'P') { // REQ[38]
-    Serial.println(">> stop printing system state");
     printing_params = false;
-
   } else if (cmd == 'L') { // REQ[39]
-    Serial.println(">> put system in LOCKED state");
     state = LOCKED; // REQ[45]
-
   } else if (cmd == 'U') { // REQ[40]
-    Serial.println(">> put system in PAD state");
     state = PAD; // REQ[3]
-
   } else if (cmd == 'V') { // REQ[41]
-    if (state != LOCKED) {
-      Serial.println(">> must be in LOCKED state to move servos");
-    } else if(!aquila.pyro_is_armed()) { // REQ[44]
-      Serial.println(">> pyro must be armed to move servos");
-    } else {
-      Serial.print(">> toggle servo position to ");
-      Serial.println(servo_pos == servo_unlocked ? "closed" : "open");
+    if (state == LOCKED && aquila.pyro_is_armed()) { // REQ[44]
       servo_pos = (servo_pos == servo_unlocked) ? servo_locked : servo_unlocked;
       aquila.move_all_servos(servo_pos);
     }
-
   } else if (cmd == 'A') { // REQ[42]
-    Serial.println(">> arm pyro");
     safely_arm_pyro();
 
   } else if (cmd == 'D') { // REQ[43]
-    Serial.println(">> disarm pyro");
     aquila.disarm_pyro();
   } else if (cmd == 'C') { // REQ[49]
-    Serial.println(">> calibrate altimeter");
     pad_pressure = aquila.get_int_pressure();
-  } else {
-    Serial.println(">> command not recognised");
   }
-
 }
 
 // prints timestamp, all sensor values to serial
