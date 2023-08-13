@@ -423,7 +423,7 @@ void log_sd_state(uint32_t loop_time){
 // handles accelerometer interrupt
 // REQ[30]
 void accel_integration() {
-  if (state == LOCKED) {return;} // REQ[18]
+  if (state == LOCKED || state == LAND) {return;} // REQ[18]
 
   aquila.update_accel();
 

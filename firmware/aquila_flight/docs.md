@@ -40,7 +40,7 @@ There are seven total flight stages, represented by a mode. \[1]
 | 3       | COAST    | acceleration < 0 \[5]                            |                                                   |
 | 4       | APOGEE   | velocity < 0 \[6]                                | Activate bottle burst pyro \[9]                   |
 | 5       | DESCENT  | barometric altitude below 500m \[7]              | Release parachute servos \[10]                    |
-| 6       | LAND     | Barometric pressure constant for 10 seconds \[8] | Reduce logging rate to 10Hz \[11], disarm pyros [51] |
+| 6       | LAND     | Barometric pressure constant for 10 seconds \[8] | Reduce logging rate to 10Hz \[11], disarm pyros \[51] |
 
 
 ### Background Operations
@@ -49,7 +49,7 @@ There are seven total flight stages, represented by a mode. \[1]
 
 | **Operation**            | **Modes**               | **Rate**    | **Description** |
 | ------------------------ | ----------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Acceleration integration | all except LOCKED \[18] | \~1kHz\[24] | The ADXL357 raises an interrupt when it has a new reading. The handler updates the velocity and altitude estimates \[30]. When in PAD state, accelerations < 0.01g are discarded \[47]. |
+| Acceleration integration | all except LOCKED and LAND \[18] | \~1kHz\[24] | The ADXL357 raises an interrupt when it has a new reading. The handler updates the velocity and altitude estimates \[30]. When in PAD state, accelerations < 0.01g are discarded \[47]. |
 | Sensor updates           | All \[19]               | 100Hz \[25] | All sensors are read and readings stored \[31]                                                                                                                                          |
 | Data logging             | All \[20]               | 100Hz\[26]  | Write all sensor readings and system parameters to SD card \[32]                                                                                                                        |
 | Telemetry transmission\* | All \[21]               | 10Hz\[27]   | Transmit packet of sensor readings and system parameters over radio \[33]                                                                                                               |
