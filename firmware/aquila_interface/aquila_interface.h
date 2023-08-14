@@ -92,6 +92,8 @@ class AQUILA {
     void move_all_servos(uint8_t angle);
 
     void transmit_telem(uint8_t size, char* data);
+    void start_listening();
+    void receive_telec(char* cmd);
 
   private:
     TEENSY_RTC rtc;

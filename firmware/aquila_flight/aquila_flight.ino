@@ -26,7 +26,11 @@
 // REQ[1]
 enum FlightState {LOCKED, PAD, BURN, COAST, APOGEE, DESCENT, LAND};
 const char *StateNames[] = {"LOCKED", "PAD", "BURN", "COAST", "APOGEE", "DESCENT", "LAND"};
-FlightState state = LOCKED; // REQ[2]
+#ifdef HIL_mode
+  FlightState state = PAD;
+#else
+  FlightState state = LOCKED; // REQ[2]
+#endif
 FlightState prevState = state;
 
 // whether system parameters are being printed to serial when on the pad 
@@ -78,6 +82,9 @@ uint16_t baro_sample_count = 0; // counts 100hz loops to know when to take sampl
 uint16_t baro_sample_index = 0; // the index in which to store the next sample
 float baro_samples[baro_num_samples]; // array to store the samples
 
+// REQ[52]
+char last_cmd = '0';
+
 // data logging
 // REQ[32]
 File datafile;
@@ -124,13 +131,22 @@ void loop() {
   }
 }
 
+byte loop_count = 0; // REQ[33][52]
 // things to do at 10Hz
 // REQ[27][28]
 void hz10(){
   uint32_t loop_time = micros();
   if (printing_params /*& (state == LOCKED || state == PAD)*/){print_serial_state();}
 
-  send_telemetry();
+  // every other loop either check if a command is received, or send a packet.
+  // can't do both bc of async timing of the radio REQ[21][33][52]
+  loop_count++;
+  if (loop_count & 0b00000001) {
+    handle_radio_command();
+    send_telemetry();
+  } else {
+    aquila.start_listening();
+  }
 
   // REQ[11]
   if (state == LAND) {
@@ -220,6 +236,16 @@ void hz100(){
     }
   }
   prevState = state;
+}
+
+// REQ[52]
+void handle_radio_command(){
+  char cmd = '0';
+  aquila.receive_telec((char*)&cmd);
+  if (cmd != '0' && cmd != last_cmd) {
+    execute_command(cmd);
+    last_cmd = cmd;
+  }
 }
 
 // reads and performs single character commands from Serial. All characters after the first are discarded.
@@ -445,6 +471,7 @@ void safely_arm_pyro() {
   aquila.arm_pyro();
 }
 
+// REQ[33]
 void send_telemetry() {
   FlightParams data;
 

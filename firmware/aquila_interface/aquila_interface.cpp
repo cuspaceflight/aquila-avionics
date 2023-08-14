@@ -78,7 +78,10 @@ void AQUILA::begin(){
   if(radio.begin(pin_baro_ext_cs) == 0) {
     Serial.println("RFM95W error");
     // while(1){}
-  } else {Serial.println("radio ok");}
+  } else {
+    radio.init_receive();
+    Serial.println("radio ok");
+  }
   
 }
 
@@ -180,4 +183,12 @@ void AQUILA::move_all_servos(uint8_t angle) {
 
 void AQUILA::transmit_telem(uint8_t size, char* data) {
   radio.transmit(size, data);
+}
+
+void AQUILA::start_listening() {
+  radio.init_receive();
+}
+
+void AQUILA::receive_telec(char* cmd) {
+  radio.check_received(cmd, 1);
 }

@@ -52,16 +52,15 @@ There are seven total flight stages, represented by a mode. \[1]
 | Acceleration integration | all except LOCKED and LAND \[18] | \~1kHz\[24] | The ADXL357 raises an interrupt when it has a new reading. The handler updates the velocity and altitude estimates \[30]. When in PAD state, accelerations < 0.01g are discarded \[47]. |
 | Sensor updates           | All \[19]               | 100Hz \[25] | All sensors are read and readings stored \[31]                                                                                                                                          |
 | Data logging             | All \[20]               | 100Hz\[26]  | Write all sensor readings and system parameters to SD card \[32]                                                                                                                        |
-| Telemetry transmission\* | All \[21]               | 10Hz\[27]   | Transmit packet of sensor readings and system parameters over radio \[33]                                                                                                               |
+| Telemetry transmission | All \[21]               | 10Hz\[27]   | Transmit packet of sensor readings and system parameters over radio \[33]                                                                                                               |
+| Telecommand reception  | All \[21]               | 10Hz\[27]   | Receive command from radio \[52] |
 | Serial write             | LOCKED and PAD \[22]    | 10Hz\[28]   | Send sensor readings and system parameters over Serial \[34]                                                                                                                            |
 | Serial read              | LOCKED and PAD \[23]    | 100Hz\[29]  | Read serial port for commands \[35]                                                                                                                                                     |
 
 
-### Serial Interface
+### Command Interface
 
-It is desirable to have a serial interface available in flight software to monitor parameters and send commands from a computer on the launch pad.
-
-This is a work in progress but may look something like the following.
+Several commands can be sent to the vehicle either by the serial connection or via the radio. The commands currently implemented are as follows.
 
 
 | **Command** | **Action** |

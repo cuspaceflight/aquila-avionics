@@ -564,10 +564,10 @@ float velocity_at_t(uint32_t ms) { // m/s
 
   uint32_t time = 0;
 
-  if (ms < 10000) {
+  if (ms < 30000) {
     return 0;
   } else {
-    time = ms - 10000;
+    time = ms - 30000;
   }
   
   if (time < 100.0) { return 0 + (2.598244501 - 0)*(time - 0.0)/(100.0); }
@@ -1835,4 +1835,12 @@ void AQUILA_HIL::move_all_servos(uint8_t angle) {
 
 void AQUILA_HIL::transmit_telem(uint8_t size, char* data) {
   radio.transmit(size, data);
+}
+
+void AQUILA_HIL::start_listening() {
+  radio.init_receive();
+}
+
+void AQUILA_HIL::receive_telec(char* cmd) {
+  radio.check_received(cmd, 1);
 }
