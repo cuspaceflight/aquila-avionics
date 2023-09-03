@@ -1808,16 +1808,16 @@ bool AQUILA_HIL::fire_pyro(uint8_t pyro_number) {
   if (!pyro_armed) { return false; }
   switch (pyro_number) {
   case 1:
-    digitalWrite(pin_pyro_cont1, HIGH);
+    digitalWrite(pin_pyro1, HIGH);
     break;
   case 2:
-    digitalWrite(pin_pyro_cont2, HIGH);
+    digitalWrite(pin_pyro2, HIGH);
     break;
   case 3:
-    digitalWrite(pin_pyro_cont3, HIGH);
+    digitalWrite(pin_pyro3, HIGH);
     break;
   case 4:
-    digitalWrite(pin_pyro_cont4, HIGH);
+    digitalWrite(pin_pyro4, HIGH);
     break;
   default:
     return false;
