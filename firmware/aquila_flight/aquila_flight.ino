@@ -484,7 +484,7 @@ void send_telemetry() {
    + (aquila.pyro_continuity(4) << 3)
    + (aquila.pyro_is_armed() << 7);
 
-  data.unix_time = aquila.rtc_unix();
+  data.unix_time = micros();
   data.flight_state = flight_state;
   data.accel_x = aquila.get_accel_x();
   data.accel_y = aquila.get_accel_y();
