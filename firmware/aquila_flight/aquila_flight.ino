@@ -220,6 +220,8 @@ void hz100(){
         safely_arm_pyro();
         aquila.fire_pyro(1);
         aquila.fire_pyro(2);
+        aquila.fire_pyro(3);
+        aquila.fire_pyro(4);
         break;
       case DESCENT: // REQ[10]
         // deploy parachutes
