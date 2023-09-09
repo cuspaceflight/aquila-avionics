@@ -112,8 +112,9 @@ void setup() {
     Serial.println("Critical SD card error");
     while(!SD.begin(BUILTIN_SDCARD)){}
   }
-  SD.remove("aquila_log.csv");
+  //SD.remove("aquila_log.csv");
   datafile = SD.open("aquila_log.csv", FILE_WRITE);
+  datafile.seek(EOF);
 
   hz10_time = hz100_time = micros(); // REQ[25][26][27][28][29]
 }
