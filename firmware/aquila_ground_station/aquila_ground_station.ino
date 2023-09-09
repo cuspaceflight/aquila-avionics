@@ -8,7 +8,7 @@ RFM95W radio;
 enum FlightState {LOCKED, PAD, BURN, COAST, APOGEE, DESCENT, LAND};
 const char *StateNames[] = {"LOCKED", "PAD", "BURN", "COAST", "APOGEE", "DESCENT", "LAND"};
 
-bool humanReadable = true; // whether to send serial data in csv or human readable form
+bool humanReadable = false; // whether to send serial data in csv or human readable form
 
 struct FlightParams {
   uint32_t unix_time;
@@ -55,10 +55,11 @@ void loop(){
       } else if (cmd == '?') {
         humanReadable = true;
       } else {
-
-        Serial.print("\n\nSending command: ");
-        Serial.println(cmd);
-        Serial.println("\n");
+        if (humanReadable) {
+          Serial.print("\n\nSending command: ");
+          Serial.println(cmd);
+          Serial.println("\n");
+        }
 
         for (int i = 0; i < 20; i++) {
           radio.transmit(1, &cmd);
